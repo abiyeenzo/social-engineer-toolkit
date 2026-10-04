@@ -62,6 +62,17 @@ sudo ./setoolkit
 
 Le manuel utilisateur complet est disponible sur [readme/User_Manual.pdf](https://github.com/trustedsec/social-engineer-toolkit/raw/master/readme/User_Manual.pdf).
 
+## Langue
+
+Ce fork est bilingue. Par défaut, SET s'affiche en anglais, exactement comme en amont. Pour basculer l'interface en français, définissez `SET_LANG=fr` avant de lancer l'outil :
+
+```bash
+export SET_LANG=fr
+sudo -E setoolkit
+```
+
+(le `-E` conserve la variable d'environnement sous `sudo`). Toute valeur autre que `fr` retombe sur l'anglais. Les chaînes françaises vivent dans [src/core/i18n_fr.py](src/core/i18n_fr.py) ; le mécanisme de traduction est dans [src/core/i18n.py](src/core/i18n.py).
+
 ## Développement
 
 ```bash
