@@ -13,6 +13,7 @@ update_config.py:
 """
 import os
 from src.core.setcore import print_status, print_info, print_error, return_continue
+from src.core.i18n import translate as _
 import datetime
 from time import sleep
 
@@ -139,13 +140,13 @@ CONFIG_DATE='""" + timestamp + """'\n""")
     sleep(1)
     sys.path.append("/etc/setoolkit")
     from set_config import CONFIG_DATE as verify
-    print_info("Nouveau fichier set.config.py généré le : %s" % timestamp)
-    print_info("Vérification de la mise à jour de la configuration...")
+    print_info(_("New set.config.py file generated on: %s") % timestamp)
+    print_info(_("Verifying configuration update..."))
     if verify == timestamp:
-        print_status("Mise à jour vérifiée, l'horodatage de la config est : %s" % timestamp)
+        print_status(_("Update verified, config timestamp is: %s") % timestamp)
     else:
-        print_error("Mise à jour échouée ? L'horodatage du fichier de config est : %s" % verify)
-    print_status("SET utilise la nouvelle configuration, pas besoin de redémarrer")
+        print_error(_("Update failed? Timestamp on config file is: %s") % verify)
+    print_status(_("SET is using the new config, no need to restart"))
     # return_continue()
 
 if __name__ == "__main__":

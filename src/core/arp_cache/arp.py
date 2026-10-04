@@ -5,6 +5,7 @@ import os
 import time
 import sys
 from src.core.setcore import *
+from src.core.i18n import translate as _
 
 # Define to use ettercap or dsniff or nothing.
 #
@@ -24,14 +25,14 @@ for line in config:
     # check for ettercap choice here
     match1 = re.search("ETTERCAP=ON", line)
     if match1:
-        print_info("L'empoisonnement du cache ARP est réglé sur " +
+        print_info(_("ARP Cache Poisoning is set to ") +
                    bcolors.GREEN + "ON" + bcolors.ENDC)
         ettercapchoice = 'y'
 
     # check for dsniff choice here
     match2 = re.search("DSNIFF=ON", line)
     if match2:
-        print_info("L'empoisonnement DNS DSNIFF est réglé sur " +
+        print_info(_("DSNIFF DNS Poisoning is set to ") +
                    bcolors.GREEN + "ON" + bcolors.ENDC)
         dsniffchoice = 'y'
         ettercapchoice = 'n'
@@ -64,24 +65,25 @@ if ettercapchoice == 'y':
     if check_options("IPADDR=") != 0:
         ipaddr = check_options("IPADDR=")
     else:
-        ipaddr = raw_input(setprompt("0", "Adresse IP pour la connexion retour : "))
+        ipaddr = raw_input(setprompt("0", _("IP address to connect back on: ")))
         update_options("IPADDR=" + ipaddr)
 
     if ettercapchoice == 'y':
         try:
-            print("""
-  Cette attaque va empoisonner toutes les victimes de votre sous-réseau local et les
-  rediriger lorsqu'elles accèdent à un site spécifique. La prochaine invite vous demandera
-  quel site doit déclencher la redirection DNS. Un exemple simple : si vous voulez que
-  tout le monde sur votre sous-réseau soit redirigé vers vous lorsqu'il navigue vers
-  www.google.com, la victime sera alors redirigée vers votre site malveillant. Vous
-  pouvez aussi empoisonner tout le monde et tous les sites avec le joker '*'.
+            print(_("""
+  This attack will poison all victims on your local subnet, and redirect them
+  when they hit a specific website. The next prompt will ask you which site you
+  will want to trigger the DNS redirect on. A simple example of this is if you
+  wanted to trigger everyone on your subnet to connect to you when they go to
+  browse to www.google.com, the victim would then be redirected to your malicious
+  site. You can alternatively poison everyone and everysite by using the wildcard
+  '*' flag.
 
-  SI VOUS VOULEZ EMPOISONNER TOUTES LES ENTRÉES DNS (PAR DÉFAUT), APPUYEZ SIMPLEMENT SUR ENTRÉE OU *
-""")
-            print_info("Exemple : http://www.google.com")
+  IF YOU WANT TO POISON ALL DNS ENTRIES (DEFAULT) JUST HIT ENTER OR *
+"""))
+            print_info(_("Example: http://www.google.com"))
             dns_spoof = raw_input(
-                setprompt("0", "Site à rediriger vers la machine attaquante [*]"))
+                setprompt("0", _("Site to redirect to attack machine [*]")))
             os.chdir(path)
             # small fix for default
             if dns_spoof == "":
@@ -100,7 +102,7 @@ if ettercapchoice == 'y':
             bridge = ""
             # assign -M arp to arp variable
             arp = "-M arp"
-            print_error("LANCEMENT DE L'ATTAQUE DNS_SPOOF ETTERCAP !")
+            print_error(_("LAUNCHING ETTERCAP DNS_SPOOF ATTACK!"))
             # spawn a child process
             os.chdir(cwd)
             time.sleep(5)
@@ -112,8 +114,8 @@ if ettercapchoice == 'y':
         except Exception as error:
             os.chdir(cwd)
             # log(error)
-            print_error("ERREUR : une erreur est survenue :")
-            print("ERREUR :" + str(error))
+            print_error(_("ERROR:An error has occured:"))
+            print(_("ERROR:") + str(error))
 
 # if we are using dsniff
 if dsniffchoice == 'y':
@@ -122,24 +124,25 @@ if dsniffchoice == 'y':
     if check_options("IPADDR=") != 0:
         ipaddr = check_options("IPADDR=")
     else:
-        ipaddr = raw_input(setprompt("0", "Adresse IP pour la connexion retour : "))
+        ipaddr = raw_input(setprompt("0", _("IP address to connect back on: ")))
         update_options("IPADDR=" + ipaddr)
 
     if dsniffchoice == 'y':
         try:
-            print("""
-  Cette attaque va empoisonner toutes les victimes de votre sous-réseau local et les
-  rediriger lorsqu'elles accèdent à un site spécifique. La prochaine invite vous demandera
-  quel site doit déclencher la redirection DNS. Un exemple simple : si vous voulez que
-  tout le monde sur votre sous-réseau soit redirigé vers vous lorsqu'il navigue vers
-  www.google.com, la victime sera alors redirigée vers votre site malveillant. Vous
-  pouvez aussi empoisonner tout le monde et tous les sites avec le joker '*'.
+            print(_("""
+  This attack will poison all victims on your local subnet, and redirect them
+  when they hit a specific website. The next prompt will ask you which site you
+  will want to trigger the DNS redirect on. A simple example of this is if you
+  wanted to trigger everyone on your subnet to connect to you when they go to
+  browse to www.google.com, the victim would then be redirected to your malicious
+  site. You can alternatively poison everyone and everysite by using the wildcard
+  '*' flag.
 
-  SI VOUS VOULEZ EMPOISONNER TOUTES LES ENTRÉES DNS (PAR DÉFAUT), APPUYEZ SIMPLEMENT SUR ENTRÉE OU *
-""")
-            print_info("Exemple : http://www.google.com")
+  IF YOU WANT TO POISON ALL DNS ENTRIES (DEFAULT) JUST HIT ENTER OR *
+"""))
+            print_info(_("Example: http://www.google.com"))
             dns_spoof = raw_input(
-                setprompt("0", "Site à rediriger vers la machine attaquante [*]"))
+                setprompt("0", _("Site to redirect to attack machine [*]")))
             # os.chdir(path)
             # small fix for default
             if dns_spoof == "":
@@ -149,7 +152,7 @@ if dsniffchoice == 'y':
             filewrite = open(userconfigpath + "dnsspoof.conf", "w")
             filewrite.write("%s %s" % (ipaddr, dns_spoof))
             filewrite.close()
-            print_error("LANCEMENT DE L'ATTAQUE DNS_SPOOF DNSSPOOF !")
+            print_error(_("LAUNCHING DNSSPOOF DNS_SPOOF ATTACK!"))
             # spawn a child process
             os.chdir(cwd)
             # time.sleep(5)
@@ -168,8 +171,8 @@ if dsniffchoice == 'y':
             os.chdir(cwd)
             # this is needed to keep it similar to format above for web gui
             # mode
-            pause = raw_input("Appuyez sur <entrée> pour démarrer dsniff.")
+            pause = raw_input(_("Press <return> to begin dsniff."))
         except Exception as error:
             os.chdir(cwd)
-            print_error("ERREUR : une erreur est survenue :")
-            print(bcolors.RED + "ERREUR" + str(error) + bcolors.ENDC)
+            print_error(_("ERROR:An error has occurred:"))
+            print(bcolors.RED + _("ERROR") + str(error) + bcolors.ENDC)

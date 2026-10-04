@@ -1,262 +1,262 @@
 #!/usr/bin/env python
 ########################################################################
 #
-# texte des menus pour SET
+# text menu for set menu stuff
 #
 ########################################################################
 from src.core.setcore import bcolors, get_version, check_os, meta_path
+from src.core.i18n import translate as _
 
-# récupère la version de SET
+# grab version of SET
 define_version = get_version()
 
-# vérifie le système d'exploitation
+# check operating system
 operating_system = check_os()
 
-# récupère le chemin de Metasploit
+# grab metasploit path
 msf_path = meta_path()
 
-PORT_NOT_ZERO = "Le port ne peut pas être zéro !"
-PORT_TOO_HIGH = "Restons sur des ports INFÉRIEURS à 65 535..."
+PORT_NOT_ZERO = _("Port cannot be zero!")
+PORT_TOO_HIGH = _("Let's stick with the LOWER 65,535 ports...")
 
-main_text = " Sélectionnez dans le menu :\n"
+main_text = _(" Select from the menu:\n")
 
-main_menu = ['Attaques d\'ingénierie sociale',
-             'Tests d\'intrusion (Fast-Track)',
-             'Modules tiers',
-             'Mettre à jour le Social-Engineer Toolkit',
-             'Mettre à jour la configuration de SET',
-             'Aide, crédits et à propos']
+main_menu = [_('Social-Engineering Attacks'),
+             _('Penetration Testing (Fast-Track)'),
+             _('Third Party Modules'),
+             _('Update the Social-Engineer Toolkit'),
+             _('Update SET configuration'),
+             _('Help, Credits, and About')]
 
-main = ['Vecteurs d\'attaque par spear-phishing',
-        'Vecteurs d\'attaque par site web',
-        'Générateur de média infecté',
-        'Créer un payload et un listener',
-        'Attaque par envoi massif d\'emails',
-        'Vecteur d\'attaque basé sur Arduino',
-        'Vecteur d\'attaque par point d\'accès sans fil',
-        'Vecteur d\'attaque par génération de QRCode',
-        'Vecteurs d\'attaque PowerShell',
-        'Modules tiers']
+main = [_('Spear-Phishing Attack Vectors'),
+        _('Website Attack Vectors'),
+        _('Infectious Media Generator'),
+        _('Create a Payload and Listener'),
+        _('Mass Mailer Attack'),
+        _('Arduino-Based Attack Vector'),
+        _('Wireless Access Point Attack Vector'),
+        _('QRCode Generator Attack Vector'),
+        _('Powershell Attack Vectors'),
+        _('Third Party Modules')]
 
-spearphish_menu = ['Effectuer une attaque par email massif',
-                   'Créer un payload de type FileFormat',
-                   'Créer un modèle d\'ingénierie sociale',
+spearphish_menu = [_('Perform a Mass Email Attack'),
+                   _('Create a FileFormat Payload'),
+                   _('Create a Social-Engineering Template'),
                    '0D']
 
-spearphish_text = ("""
- Le module """ + bcolors.BOLD + """Spearphishing""" + bcolors.ENDC + """ vous permet de rédiger des emails sur mesure et de les
- envoyer à un grand (ou petit) nombre de personnes avec des payloads malveillants
- en pièce jointe (FileFormat). Si vous voulez usurper votre adresse email, assurez-vous
- que "Sendmail" est installé (apt-get install sendmail) et changez le paramètre
- config/set_config SENDMAIL=OFF en SENDMAIL=ON.
+spearphish_text = _("""
+ The {bold}Spearphishing{endc} module allows you to specially craft email messages and send
+ them to a large (or small) number of people with attached fileformat malicious
+ payloads. If you want to spoof your email address, be sure "Sendmail" is in-
+ stalled (apt-get install sendmail) and change the config/set_config SENDMAIL=OFF
+ flag to SENDMAIL=ON.
 
- Il y a deux options : la première consiste à se familiariser et à laisser SET
- tout faire pour vous (option 1), la seconde consiste à créer votre propre
- payload FileFormat et à l'utiliser dans votre propre attaque. Dans tous les cas,
- bonne chance et amusez-vous bien !
-""")
+ There are two options, one is getting your feet wet and letting SET do
+ everything for you (option 1), the second is to create your own FileFormat
+ payload and use it in your own attack. Either way, good luck and enjoy!
+""").format(bold=bcolors.BOLD, endc=bcolors.ENDC)
 
-webattack_menu = ['Attaque par Applet Java',
-                  'Attaque par exploit navigateur Metasploit',
-                  'Attaque par récupération d\'identifiants (Credential Harvester)',
-                  'Attaque par Tabnabbing',
-                  'Attaque par Web Jacking',
-                  'Attaque Web multi-méthodes',
-                  'Attaque HTA',
+webattack_menu = [_('Java Applet Attack Method'),
+                  _('Metasploit Browser Exploit Method'),
+                  _('Credential Harvester Attack Method'),
+                  _('Tabnabbing Attack Method'),
+                  _('Web Jacking Attack Method'),
+                  _('Multi-Attack Web Method'),
+                  _('HTA Attack Method'),
                   '0D']
 
-fasttrack_menu = ['Bruteforce Microsoft SQL',
-                  'Exploits personnalisés',
-                  'Vecteur d\'attaque SCCM',
-                  'Vérificateur de mots de passe par défaut Dell DRAC/Chassis',
-                  'RID_ENUM - Attaque d\'énumération des utilisateurs',
-                  'Injection PowerShell via PSEXEC',
+fasttrack_menu = [_('Microsoft SQL Bruter'),
+                  _('Custom Exploits'),
+                  _('SCCM Attack Vector'),
+                  _('Dell DRAC/Chassis Default Checker'),
+                  _('RID_ENUM - User Enumeration Attack'),
+                  _('PSEXEC Powershell Injection'),
                   '0D']
 
-fasttrack_text = ("""
-Bienvenue dans la plateforme de tests d'intrusion """ + bcolors.BOLD + """Fast-Track""" + bcolors.ENDC + """ du Social-Engineer Toolkit. Ces vecteurs
-d'attaque regroupent une série d'exploits et des aspects d'automatisation pour vous aider dans l'art
-du test d'intrusion. SET intègre désormais les vecteurs d'attaque exploités par Fast-Track. Tous ces
-vecteurs d'attaque ont été entièrement réécrits et personnalisés depuis zéro afin d'améliorer les
-fonctionnalités et les capacités.
-""")
+fasttrack_text = _("""
+Welcome to the Social-Engineer Toolkit - {bold}Fast-Track Penetration Testing platform{endc}. These attack vectors
+have a series of exploits and automation aspects to assist in the art of penetration testing. SET
+now incorporates the attack vectors leveraged in Fast-Track. All of these attack vectors have been
+completely rewritten and customized from scratch as to improve functionality and capabilities.
+""").format(bold=bcolors.BOLD, endc=bcolors.ENDC)
 
-fasttrack_exploits_menu1 = ['MS08-067 (Win2000, Win2k3, WinXP)',
-                            'Mozilla Firefox 3.6.16 - Exploit Use After Free sur l\'objet mChannel (Win7)',
-                            'Solarwinds Storage Manager 5.1.0 - Injection SQL SYSTEM distante',
-                            'RDP | Use after Free - Déni de service',
-                            'Contournement d\'authentification MySQL',
-                            'Contournement d\'authentification root F5',
+fasttrack_exploits_menu1 = [_('MS08-067 (Win2000, Win2k3, WinXP)'),
+                            _('Mozilla Firefox 3.6.16 mChannel Object Use After Free Exploit (Win7)'),
+                            _('Solarwinds Storage Manager 5.1.0 Remote SYSTEM SQL Injection Exploit'),
+                            _('RDP | Use after Free - Denial of Service'),
+                            _('MySQL Authentication Bypass Exploit'),
+                            _('F5 Root Authentication Bypass Exploit'),
                             '0D']
 
-fasttrack_exploits_text1 = ("""
-Bienvenue dans la section """ + bcolors.BOLD + """Exploits""" + bcolors.ENDC + """ de la plateforme de tests d'intrusion Fast-Track du Social-Engineer Toolkit.
-Ce menu regroupe des exploits plus rares et majoritairement écrits en Python. Il continuera de s'enrichir avec le temps.
-""")
+fasttrack_exploits_text1 = _("""
+Welcome to the Social-Engineer Toolkit - Fast-Track Penetration Testing {bold}Exploits Section{endc}. This
+menu has obscure exploits and ones that are primarily python driven. This will continue to grow over time.
+""").format(bold=bcolors.BOLD, endc=bcolors.ENDC)
 
-fasttrack_mssql_menu1 = ['Scanner et attaquer MSSQL',
-                         'Se connecter directement à MSSQL',
+fasttrack_mssql_menu1 = [_('Scan and Attack MSSQL'),
+                         _('Connect directly to MSSQL'),
                          '0D']
 
-fasttrack_mssql_text1 = ("""
-Bienvenue dans le """ + bcolors.BOLD + """Bruteforceur Microsoft SQL""" + bcolors.ENDC + """ de la plateforme de tests d'intrusion Fast-Track du Social-Engineer Toolkit.
-Ce vecteur d'attaque va tenter d'identifier les serveurs MSSQL actifs et de forcer les mots de passe faibles
-qui pourraient être trouvés. Si cela réussit, SET compromettra alors le système affecté en déployant un
-binaire via un vecteur d'attaque binaire vers hexadécimal, qui convertit un binaire brut en hexadécimal et
-l'envoie par étapes sur le système cible. À ce stade, un déclencheur reconvertira le payload en binaire.
-""")
+fasttrack_mssql_text1 = _("""
+Welcome to the Social-Engineer Toolkit - Fast-Track Penetration Testing {bold}Microsoft SQL Brute Forcer{endc}. This
+attack vector will attempt to identify live MSSQL servers and brute force the weak account passwords that
+may be found. If that occurs, SET will then compromise the affected system by deploying a binary to
+hexadecimal attack vector which will take a raw binary, convert it to hexadecimal and use a staged approach
+in deploying the hexadecimal form of the binary onto the underlying system. At this point, a trigger will occur
+to convert the payload back to a binary for us.
+""").format(bold=bcolors.BOLD, endc=bcolors.ENDC)
 
-webattack_text = ("""
-Le module d'attaque Web est une méthode unique combinant plusieurs attaques basées sur le web afin de compromettre la victime visée.
+webattack_text = _("""
+The Web Attack module is a unique way of utilizing multiple web-based attacks in order to compromise the intended victim.
 
-L'""" + bcolors.BOLD + """attaque par Applet Java""" + bcolors.ENDC + """ usurpe un certificat Java et délivre un payload Metasploit. Elle utilise un applet Java personnalisé créé par Thomas Werth pour délivrer le payload.
+The {bold}Java Applet Attack{endc} method will spoof a Java Certificate and deliver a Metasploit-based payload. Uses a customized java applet created by Thomas Werth to deliver the payload.
 
-L'""" + bcolors.BOLD + """exploit navigateur Metasploit""" + bcolors.ENDC + """ utilise certains exploits de navigateur Metasploit via une iframe et délivre un payload Metasploit.
+The {bold}Metasploit Browser Exploit{endc} method will utilize select Metasploit browser exploits through an iframe and deliver a Metasploit payload.
 
-Le """ + bcolors.BOLD + """Credential Harvester""" + bcolors.ENDC + """ clone un site web possédant un champ nom d'utilisateur/mot de passe et récupère toutes les informations envoyées au site.
+The {bold}Credential Harvester{endc} method will utilize web cloning of a web- site that has a username and password field and harvest all the information posted to the website.
 
-Le """ + bcolors.BOLD + """TabNabbing""" + bcolors.ENDC + """ attend que l'utilisateur change d'onglet, puis rafraîchit la page vers autre chose.
+The {bold}TabNabbing{endc} method will wait for a user to move to a different tab, then refresh the page to something different.
 
-L'""" + bcolors.BOLD + """attaque Web-Jacking""" + bcolors.ENDC + """ a été introduite par white_sheep et emgent. Cette méthode utilise un remplacement par iframe pour faire apparaître le lien d'URL mis en évidence comme légitime ; cependant, un clic ouvre une fenêtre qui est ensuite remplacée par le lien malveillant. Vous pouvez modifier les paramètres de remplacement de lien dans set_config si c'est trop lent/rapide.
+The {bold}Web-Jacking Attack{endc} method was introduced by white_sheep, emgent. This method utilizes iframe replacements to make the highlighted URL link to appear legitimate however when clicked a window pops up then is replaced with the malicious link. You can edit the link replacement settings in the set_config if it's too slow/fast.
 
-Le """ + bcolors.BOLD + """mode multi-attaques""" + bcolors.ENDC + """ combine plusieurs attaques via le menu d'attaque Web. Par exemple, vous pouvez utiliser l'Applet Java, l'exploit navigateur Metasploit, le Credential Harvester/Tabnabbing en même temps pour voir lequel fonctionne.
+The {bold}Multi-Attack{endc} method will add a combination of attacks through the web attack menu. For example, you can utilize the Java Applet, Metasploit Browser, Credential Harvester/Tabnabbing all at once to see which is successful.
 
-L'""" + bcolors.BOLD + """attaque HTA""" + bcolors.ENDC + """ vous permet de cloner un site et d'effectuer une injection PowerShell via des fichiers HTA, utilisable pour l'exploitation PowerShell sous Windows via le navigateur.
-""")
+The {bold}HTA Attack{endc} method will allow you to clone a site and perform PowerShell injection through HTA files which can be used for Windows-based PowerShell exploitation through the browser.
+""").format(bold=bcolors.BOLD, endc=bcolors.ENDC)
 
-webattack_vectors_menu = ['Modèles web',
-                          'Cloneur de site',
-                          'Import personnalisé\n',
+webattack_vectors_menu = [_('Web Templates'),
+                          _('Site Cloner'),
+                          _('Custom Import\n'),
                           ]
 
-webattack_vectors_text = ("""
- La première méthode permet à SET d'importer une liste d'applications
- web prédéfinies qu'il peut utiliser dans l'attaque.
+webattack_vectors_text = (_("""
+ The first method will allow SET to import a list of pre-defined web
+ applications that it can utilize within the attack.
 
- La deuxième méthode clone entièrement un site web de votre choix
- et vous permet d'utiliser les vecteurs d'attaque au sein de
- l'application web identique que vous souhaitiez cloner.
+ The second method will completely clone a website of your choosing
+ and allow you to utilize the attack vectors within the completely
+ same web application you were attempting to clone.
 
- La troisième méthode vous permet d'importer votre propre site web ; notez
- que vous ne devez avoir qu'un fichier index.html lors de l'utilisation
- de la fonctionnalité d'import de site web.
-   """)
+ The third method allows you to import your own website, note that you
+ should only have an index.html when using the import website
+ functionality.
+   """))
 
-teensy_menu = ['Payload MSF PowerShell HTTP GET',
-               'Payload MSF WSCRIPT HTTP GET',
-               'Payload Reverse Shell basé sur PowerShell',
-               'Payload Beef Jack pour Internet Explorer/FireFox',
-               'Payload : aller sur un site Java malveillant et accepter l\'applet',
-               'Payload Gnome wget Download',
-               'Attaque Binaire vers Teensy (déploie des payloads MSF)',
-               'Attaque SDCard vers Teensy (déploie n\'importe quel EXE)',
-               'Attaque SDCard vers Teensy (déploie sur OSX)',
-               'PDE et bibliothèques du Sniffer X10 Arduino',
-               'PDE et bibliothèques du Jammer X10 Arduino',
-               'Attaque Teensy ShellCode direct via PowerShell',
-               'Attaque Peensy multi-attaque Dip Switch + SDCard',
-	       'Attaque HID Msbuild compilation en mémoire Shellcode',
+teensy_menu = [_('PowerShell HTTP GET MSF Payload'),
+               _('WSCRIPT HTTP GET MSF Payload'),
+               _('PowerShell based Reverse Shell Payload'),
+               _('Internet Explorer/FireFox Beef Jack Payload'),
+               _('Go to malicious java site and accept applet Payload'),
+               _('Gnome wget Download Payload'),
+               _('Binary 2 Teensy Attack (Deploy MSF payloads)'),
+               _('SDCard 2 Teensy Attack (Deploy Any EXE)'),
+               _('SDCard 2 Teensy Attack (Deploy on OSX)'),
+               _('X10 Arduino Sniffer PDE and Libraries'),
+               _('X10 Arduino Jammer PDE and Libraries'),
+               _('PowerShell Direct ShellCode Teensy Attack'),
+               _('Peensy Multi Attack Dip Switch + SDCard Attack'),
+	       _('HID Msbuild compile to memory Shellcode Attack'),
                '0D']
 
-teensy_text = ("""
- Le vecteur d'attaque """ + bcolors.BOLD + """basé sur Arduino""" + bcolors.ENDC + """ utilise un appareil basé sur Arduino pour
- programmer le dispositif. Vous pouvez tirer parti des Teensy, qui disposent
- d'un stockage embarqué et permettent l'exécution de code à distance sur
- le système physique. Comme ces appareils sont reconnus comme des claviers
- USB, ils contournent toute protection par désactivation de l'autorun ou
- par protection des terminaux.
+teensy_text = _("""
+ The {bold}Arduino-Based Attack{endc} Vector utilizes the Arduin-based device to
+ program the device. You can leverage the Teensy's, which have onboard
+ storage and can allow for remote code execution on the physical
+ system. Since the devices are registered as USB Keyboard's it
+ will bypass any autorun disabled or endpoint protection on the
+ system.
 
- Vous devrez acheter le dispositif USB Teensy, pour environ 22 dollars.
- Ce vecteur d'attaque génère automatiquement le code nécessaire pour
- déployer le payload sur le système.
+ You will need to purchase the Teensy USB device, it's roughly
+ $22 dollars. This attack vector will auto generate the code
+ needed in order to deploy the payload on the system for you.
 
- Ce vecteur d'attaque créera les fichiers .pde nécessaires à importer
- dans Arduino (l'IDE utilisé pour programmer le Teensy). Les vecteurs
- d'attaque vont des téléchargeurs basés sur PowerShell aux attaques
- wscript, et d'autres méthodes.
+ This attack vector will create the .pde files necessary to import
+ into Arduino (the IDE used for programming the Teensy). The attack
+ vectors range from PowerShell based downloaders, wscript attacks,
+ and other methods.
 
- Pour plus d'informations sur les spécifications et de bons tutoriels, visitez :
+ For more information on specifications and good tutorials visit:
 
  http://www.irongeek.com/i.php?page=security/programmable-hid-usb-keystroke-dongle
 
- Pour acheter un Teensy, visitez : http://www.pjrc.com/store/teensy.html
- Remerciements spéciaux à : IronGeek, WinFang, et Garland
+ To purchase a Teensy, visit: http://www.pjrc.com/store/teensy.html
+ Special thanks to: IronGeek, WinFang, and Garland
 
- Ce vecteur d'attaque cible aussi les contrôleurs basés sur X10, assurez-vous
- d'utiliser des dispositifs de communication X10 pour que cela fonctionne.
+ This attack vector also attacks X10 based controllers, be sure to be leveraging
+ X10 based communication devices in order for this to work.
 
- Sélectionnez un payload pour créer le fichier pde à importer dans Arduino :
-""")
+ Select a payload to create the pde file to import into Arduino:
+""").format(bold=bcolors.BOLD, endc=bcolors.ENDC)
 
-wireless_attack_menu = ['Démarrer le point d\'accès du vecteur d\'attaque sans fil SET',
-                        'Arrêter le point d\'accès du vecteur d\'attaque sans fil SET',
+wireless_attack_menu = [_('Start the SET Wireless Attack Vector Access Point'),
+                        _('Stop the SET Wireless Attack Vector Access Point'),
                         '0D']
 
 
-wireless_attack_text = """
- Le module d'""" + bcolors.BOLD + """attaque sans fil""" + bcolors.ENDC + """ crée un point d'accès en utilisant votre
- carte sans fil et redirige toutes les requêtes DNS vers vous. Le concept est
- assez simple : SET crée un point d'accès sans fil, un serveur DHCP, et usurpe
- le DNS pour rediriger le trafic vers la machine attaquante. Il quitte ensuite
- ce menu avec tout s'exécutant en tant que processus enfant.
+wireless_attack_text = _("""
+ The {bold}Wireless Attack{endc} module will create an access point leveraging your
+ wireless card and redirect all DNS queries to you. The concept is fairly
+ simple, SET will create a wireless access point, DHCP server, and spoof
+ DNS to redirect traffic to the attacker machine. It will then exit out
+ of that menu with everything running as a child process.
 
- Vous pouvez alors lancer n'importe quel vecteur d'attaque SET, par exemple l'attaque
- par Applet Java, et lorsqu'une victime rejoint votre point d'accès et tente d'accéder
- à un site web, elle sera redirigée vers votre machine attaquante.
+ You can then launch any SET attack vector you want, for example the Java
+ Applet attack and when a victim joins your access point and tries going to
+ a website, will be redirected to your attacker machine.
 
- Ce vecteur d'attaque nécessite AirBase-NG, AirMon-NG, DNSSpoof, et dhcpd3.
+ This attack vector requires AirBase-NG, AirMon-NG, DNSSpoof, and dhcpd3.
 
-"""
+""").format(bold=bcolors.BOLD, endc=bcolors.ENDC)
 
-infectious_menu = ['Exploits de type FileFormat',
-                   'Exécutable Metasploit standard',
+infectious_menu = [_('File-Format Exploits'),
+                   _('Standard Metasploit Executable'),
                    '0D']
 
 
-infectious_text = """
- Le module """ + bcolors.BOLD + bcolors.GREEN + """Infectious""" + bcolors.ENDC + """ USB/CD/DVD crée un fichier autorun.inf et un
- payload Metasploit. Lorsque le DVD/USB/CD est inséré, il s'exécutera
- automatiquement si l'autorun est activé.""" + bcolors.ENDC + """
+infectious_text = _("""
+ The {bold}{green}Infectious {endc}USB/CD/DVD module will create an autorun.inf file and a
+ Metasploit payload. When the DVD/USB/CD is inserted, it will automatically
+ run if autorun is enabled.{endc}
 
- Choisissez le vecteur d'attaque que vous souhaitez utiliser : exploits de type fichier ou exécutable direct.
-"""
+ Pick the attack vector you wish to use: fileformat bugs or a straight executable.
+""").format(bold=bcolors.BOLD, green=bcolors.GREEN, endc=bcolors.ENDC)
 
-# utilisé dans create_payloads.py
+# used in create_payloads.py
 if operating_system != "windows":
     if msf_path != False:
         payload_menu_1 = [
-            'Injection mémoire Meterpreter (PAR DÉFAUT)   Dépose un payload Meterpreter via injection PowerShell',
-            'Injection mémoire multiple Meterpreter       Dépose plusieurs payloads Metasploit via injection PowerShell',
-            'Shell interactif SE Toolkit                  Shell interactif inversé personnalisé conçu pour SET',
-            'Shell inversé HTTP SE Toolkit                 Shell HTTP purement natif avec support du chiffrement AES',
-            'Payload de tunneling HTTP RATTE               Payload de contournement de sécurité qui tunnelise toute la communication via HTTP',
-            'Shellcode Alphanumérique ShellCodeExec        Dépose un payload Meterpreter via shellcodeexec',
-            'Importer votre propre exécutable               Indiquez un chemin vers votre propre exécutable',
-            'Importer votre propre commands.txt              Spécifiez les payloads à envoyer via la ligne de commande\n']
+            _('Meterpreter Memory Injection (DEFAULT)  This will drop a Meterpreter payload through powershell injection'),
+            _('Meterpreter Multi-Memory Injection      This will drop multiple Metasploit payloads via powershell injection'),
+            _('SE Toolkit Interactive Shell            Custom interactive reverse toolkit designed for SET'),
+            _('SE Toolkit HTTP Reverse Shell           Purely native HTTP shell with AES encryption support'),
+            _('RATTE HTTP Tunneling Payload            Security bypass payload that will tunnel all comms over HTTP'),
+            _('ShellCodeExec Alphanum Shellcode        This will drop a meterpreter payload through shellcodeexec'),
+            _('Import your own executable              Specify a path for your own executable'),
+            _('Import your own commands.txt            Specify payloads to be sent via command line\n')]
 
 if operating_system == "windows" or msf_path == False:
     payload_menu_1 = [
-        'Shell interactif SE Toolkit    Shell interactif inversé personnalisé conçu pour SET',
-        'Shell inversé HTTP SE Toolkit   Shell HTTP purement natif avec support du chiffrement AES',
-        'Payload de tunneling HTTP RATTE   Payload de contournement de sécurité qui tunnelise toute la communication via HTTP\n']
+        _('SE Toolkit Interactive Shell    Custom interactive reverse toolkit designed for SET'),
+        _('SE Toolkit HTTP Reverse Shell   Purely native HTTP shell with AES encryption support'),
+        _('RATTE HTTP Tunneling Payload    Security bypass payload that will tunnel all comms over HTTP\n')]
 
-payload_menu_1_text = """
-Quel payload souhaitez-vous générer :
+payload_menu_1_text = _("""
+What payload would you like to generate:
 
-  Nom :                                       Description :
-"""
+  Name:                                       Description:
+""")
 
-# utilisé dans gen_payload.py
+# used in gen_payload.py
 payload_menu_2 = [
-    'Windows Shell Reverse_TCP               Lance un shell de commandes sur la victime et le renvoie à l\'attaquant',
-    'Windows Reverse_TCP Meterpreter         Lance un shell Meterpreter sur la victime et le renvoie à l\'attaquant',
-    'Windows Reverse_TCP VNC DLL             Lance un serveur VNC sur la victime et le renvoie à l\'attaquant',
-    'Windows Shell Reverse_TCP X64           Shell de commandes Windows X64, Reverse TCP Inline',
-    'Windows Meterpreter Reverse_TCP X64     Connexion retour vers l\'attaquant (Windows x64), Meterpreter',
-    'Windows Meterpreter Egress Buster       Lance un shell Meterpreter et trouve un port de sortie parmi plusieurs ports',
-    'Windows Meterpreter Reverse HTTPS       Tunnelise la communication via HTTP avec SSL et utilise Meterpreter',
-    'Windows Meterpreter Reverse DNS         Utilise un nom d\'hôte plutôt qu\'une adresse IP et utilise Reverse Meterpreter',
-    'Télécharger/Exécuter votre propre exécutable        Télécharge un exécutable et l\'exécute\n'
+    _('Windows Shell Reverse_TCP               Spawn a command shell on victim and send back to attacker'),
+    _('Windows Reverse_TCP Meterpreter         Spawn a meterpreter shell on victim and send back to attacker'),
+    _('Windows Reverse_TCP VNC DLL             Spawn a VNC server on victim and send back to attacker'),
+    _('Windows Shell Reverse_TCP X64           Windows X64 Command Shell, Reverse TCP Inline'),
+    _('Windows Meterpreter Reverse_TCP X64     Connect back to the attacker (Windows x64), Meterpreter'),
+    _('Windows Meterpreter Egress Buster       Spawn a Meterpreter shell and find a port home via multiple ports'),
+    _('Windows Meterpreter Reverse HTTPS       Tunnel communication over HTTP using SSL and use Meterpreter'),
+    _('Windows Meterpreter Reverse DNS         Use a hostname instead of an IP address and use Reverse Meterpreter'),
+    _('Download/Run your Own Executable        Downloads an executable and runs it\n')
 ]
 
 
@@ -264,129 +264,130 @@ payload_menu_2_text = """\n"""
 
 payload_menu_3_text = ""
 payload_menu_3 = [
-    'Windows Reverse TCP Shell              Lance un shell de commandes sur la victime et le renvoie à l\'attaquant',
-    'Windows Meterpreter Reverse_TCP        Lance un shell Meterpreter sur la victime et le renvoie à l\'attaquant',
-    'Windows Reverse VNC DLL                Lance un serveur VNC sur la victime et le renvoie à l\'attaquant',
-    'Windows Reverse TCP Shell (x64)        Shell de commandes Windows X64, Reverse TCP Inline',
-    'Windows Meterpreter Reverse_TCP (X64)  Connexion retour vers l\'attaquant (Windows x64), Meterpreter',
-    'Windows Shell Bind_TCP (X64)           Exécute le payload et crée un port en écoute sur le système distant',
-    'Windows Meterpreter Reverse HTTPS      Tunnelise la communication via HTTP avec SSL et utilise Meterpreter\n']
+    _('Windows Reverse TCP Shell              Spawn a command shell on victim and send back to attacker'),
+    _('Windows Meterpreter Reverse_TCP        Spawn a Meterpreter shell on victim and send back to attacker'),
+    _('Windows Reverse VNC DLL                Spawn a VNC server on victim and send back to attacker'),
+    _('Windows Reverse TCP Shell (x64)        Windows X64 Command Shell, Reverse TCP Inline'),
+    _('Windows Meterpreter Reverse_TCP (X64)  Connects back to the attacker (Windows x64), Meterpreter'),
+    _('Windows Shell Bind_TCP (X64)           Execute payload and create an accepting port on remote system'),
+    _('Windows Meterpreter Reverse HTTPS      Tunnel communication over HTTP using SSL and use Meterpreter\n')]
 
-# appelé depuis create_payload.py, dictionnaire associé = ms_attacks
+# called from create_payload.py associated dictionary = ms_attacks
 create_payloads_menu = [
-    'Vecteur d\'attaque DLL Hijacking personnalisé SET (RAR, ZIP)',
-    'Attaque par capture UNC LM SMB sur document personnalisée SET',
-    'MS15-100 Vulnérabilité Microsoft Windows Media Center MCL',
-    'MS14-017 Confusion d\'objet RTF dans Microsoft Word (2014-04-01)',
-    'Dépassement de pile Microsoft Windows CreateSizedDIBSECTION',
-    'Dépassement de pile RTF pFragments de Microsoft Word (MS10-087)',
-    'Exécution de code à distance Adobe Flash Player "Button"',
-    'Dépassement Adobe CoolType SING Table "uniqueName"',
-    'Utilisation de pointeur invalide Adobe Flash Player "newfunction"',
-    'Dépassement de tampon Adobe Collab.collectEmailInfo',
-    'Dépassement de tampon Adobe Collab.getIcon',
-    'Exploit de corruption mémoire Adobe JBIG2Decode',
-    'Ingénierie sociale par EXE intégré dans un PDF Adobe',
-    'Dépassement de tampon Adobe util.printf()',
-    'EXE personnalisé vers VBA (envoyé via RAR) (RAR requis)',
-    'Dépassement de tableau Adobe U3D CLODProgressiveMeshDeclaration',
-    'Ingénierie sociale par EXE intégré dans un PDF Adobe (NOJS)',
-    'Dépassement de pile sur le titre de Foxit PDF Reader v4.1.1',
-    'Dépassement de tampon Apple QuickTime PICT PnSize',
-    'Dépassement de pile au lancement de Nuance PDF Reader v6.0',
-    'Vulnérabilité de corruption mémoire Adobe Reader u3D',
-    'Dépassement de tampon ActiveX MSCOMCTL (ms12-027)\n']
+    _('SET Custom Written DLL Hijacking Attack Vector (RAR, ZIP)'),
+    _('SET Custom Written Document UNC LM SMB Capture Attack'),
+    _('MS15-100 Microsoft Windows Media Center MCL Vulnerability'),
+    _('MS14-017 Microsoft Word RTF Object Confusion (2014-04-01)'),
+    _('Microsoft Windows CreateSizedDIBSECTION Stack Buffer Overflow'),
+    _('Microsoft Word RTF pFragments Stack Buffer Overflow (MS10-087)'),
+    _('Adobe Flash Player "Button" Remote Code Execution'),
+    _('Adobe CoolType SING Table "uniqueName" Overflow'),
+    _('Adobe Flash Player "newfunction" Invalid Pointer Use'),
+    _('Adobe Collab.collectEmailInfo Buffer Overflow'),
+    _('Adobe Collab.getIcon Buffer Overflow'),
+    _('Adobe JBIG2Decode Memory Corruption Exploit'),
+    _('Adobe PDF Embedded EXE Social Engineering'),
+    _('Adobe util.printf() Buffer Overflow'),
+    _('Custom EXE to VBA (sent via RAR) (RAR required)'),
+    _('Adobe U3D CLODProgressiveMeshDeclaration Array Overrun'),
+    _('Adobe PDF Embedded EXE Social Engineering (NOJS)'),
+    _('Foxit PDF Reader v4.1.1 Title Stack Buffer Overflow'),
+    _('Apple QuickTime PICT PnSize Buffer Overflow'),
+    _('Nuance PDF Reader v6.0 Launch Stack Buffer Overflow'),
+    _('Adobe Reader u3D Memory Corruption Vulnerability'),
+    _('MSCOMCTL ActiveX Buffer Overflow (ms12-027)\n')]
 
-create_payloads_text = """
- Sélectionnez l'exploit de type fichier que vous voulez.
- Par défaut, il s'agit de l'EXE intégré dans un PDF.\n
-           ********** PAYLOADS **********\n"""
+create_payloads_text = _("""
+ Select the file format exploit you want.
+ The default is the PDF embedded EXE.\n
+           ********** PAYLOADS **********\n""")
 
 browser_exploits_menu = [
-    'Adobe Flash Player - Use After Free sur ByteArray (2015-07-06)',
-    'Adobe Flash Player - Dépassement de tampon décodage audio Nellymoser (2015-06-23)',
-    'Adobe Flash Player - Corruption mémoire Drawing Fill Shader (2015-05-12)',
-    'MS14-012 Internet Explorer - Use-After-Free sur TextRange (2014-03-11)',
-    'MS14-012 Internet Explorer - Use-After-Free sur CMarkup (2014-02-13)',
-    'Internet Explorer - Use-After-Free sur CDisplayPointer (13/10/2013)',
-    'Internet Explorer - Use-After-Free sur SetMouseCapture (17/09/2013)',
-    'Exécution de code à distance Applet Java JMX (MIS À JOUR 2013-01-19)',
-    'Exécution de code à distance Applet Java JMX (2013-01-10)',
-    'MS13-009 Internet Explorer - Use-After-Free sur SLayoutRun (2013-02-13)',
-    'Internet Explorer - Use-After-Free sur l\'objet CDwnBindInfo (2012-12-27)',
-    'Exécution de code à distance Applet Java 7 (2012-08-26)',
-    'Vulnérabilité Use-After-Free Internet Explorer execCommand (2012-09-14)',
-    'Vulnérabilité de violation de type Java AtomicReferenceArray (2012-02-14)',
-    'Exécution de code à distance via le cache du vérificateur de bytecode Applet Java (2012-06-06)',
-    'MS12-037 Internet Explorer - Corruption mémoire sur la gestion d\'objet supprimé Same ID Property (2012-06-12)',
-    'Corruption mémoire non initialisée Microsoft XML Core Services MSXML (2012-06-12)',
-    'Confusion de type Adobe Flash Player Object (2012-05-04)',
-    'Dépassement Adobe Flash Player MP4 "cprt" (2012-02-15)',
-    'MS12-004 Dépassement de tas midiOutPlayNextPolyEvent (2012-01-10)',
-    'Exécution de code à distance Applet Java Rhino Script Engine (2011-10-18)',
-    'MS11-050 Internet Explorer - Use After Free sur mshtml!CObjectElement (2011-06-16)',
-    'Vulnérabilité de corruption mémoire Adobe Flash Player 10.2.153.1 SWF (2011-04-11)',
-    'Téléchargement et exécution via la propriété ActiveX URL du client Cisco AnyConnect VPN (2011-06-01)',
-    'Internet Explorer - Use After Free sur l\'import CSS (2010-11-29)',
-    'Dépassement de tampon ActiveX des outils d\'administration Microsoft WMI (2010-12-21)',
-    'Corruption mémoire des balises CSS dans Internet Explorer (2010-11-03)',
-    'Exécution de code à distance Sun Java Applet2ClassLoader (2011-02-15)',
-    'Dépassement de tampon docbase du nouveau plugin Sun Java Runtime (2010-10-12)',
-    'Détournement de DLL via l\'application Microsoft Windows WebDAV (2010-08-18)',
-    'Vulnérabilité de vérification de bytecode AVM Adobe Flash Player (2011-03-15)',
-    'Exploit de corruption mémoire Adobe Shockwave rcsL (2010-10-21)',
-    'Dépassement de pile Adobe CoolType SING Table "uniqueName" (2010-09-07)',
-    'Exécution de code Apple QuickTime 7.6.7 Marshaled_pUnk (2010-08-30)',
-    'XSS et exécution de commandes Microsoft Help Center (2010-06-09)',
-    'Internet Explorer - Use After Free sur iepeers.dll (2010-03-09)',
-    'Corruption mémoire Internet Explorer "Aurora" (2010-01-14)',
-    'Exploit Tabular Data Control d\'Internet Explorer (2010-03-0)',
-    'Corruption mémoire non initialisée Internet Explorer 7 (2009-02-10)',
-    'Corruption du style getElementsbyTagName d\'Internet Explorer (2009-11-20)',
-    'Dépassement isComponentInstalled d\'Internet Explorer (2006-02-24)',
-    'Corruption de liaison de données Internet Explorer (2008-12-07)',
-    'Mauvaise configuration de script non sécurisé dans Internet Explorer (2010-09-20)',
-    'Corruption mémoire de la valeur de retour escape dans FireFox 3.5 (2009-07-13)',
-    'Vulnérabilité use after free mChannel dans FireFox 3.6.16 (2011-05-10)',
-    'Autopwn navigateur Metasploit (À UTILISER À VOS RISQUES !)\n']
+    _('Adobe Flash Player ByteArray Use After Free (2015-07-06)'),
+    _('Adobe Flash Player Nellymoser Audio Decoding Buffer Overflow (2015-06-23)'),
+    _('Adobe Flash Player Drawing Fill Shader Memory Corruption (2015-05-12)'),
+    _('MS14-012 Microsoft Internet Explorer TextRange Use-After-Free (2014-03-11)'),
+    _('MS14-012 Microsoft Internet Explorer CMarkup Use-After-Free (2014-02-13)'),
+    _('Internet Explorer CDisplayPointer Use-After-Free (10/13/2013)'),
+    _('Micorosft Internet Explorer SetMouseCapture Use-After-Free (09/17/2013)'),
+    _('Java Applet JMX Remote Code Execution (UPDATED 2013-01-19)'),
+    _('Java Applet JMX Remote Code Execution (2013-01-10)'),
+    _('MS13-009 Microsoft Internet Explorer SLayoutRun Use-AFter-Free (2013-02-13)'),
+    _('Microsoft Internet Explorer CDwnBindInfo Object Use-After-Free (2012-12-27)'),
+    _('Java 7 Applet Remote Code Execution (2012-08-26)'),
+    _('Microsoft Internet Explorer execCommand Use-After-Free Vulnerability (2012-09-14)'),
+    _('Java AtomicReferenceArray Type Violation Vulnerability (2012-02-14)'),
+    _('Java Applet Field Bytecode Verifier Cache Remote Code Execution (2012-06-06)'),
+    _('MS12-037 Internet Explorer Same ID Property Deleted Object Handling Memory Corruption (2012-06-12)'),
+    _('Microsoft XML Core Services MSXML Uninitialized Memory Corruption (2012-06-12)'),
+    _('Adobe Flash Player Object Type Confusion  (2012-05-04)'),
+    _('Adobe Flash Player MP4 "cprt" Overflow (2012-02-15)'),
+    _('MS12-004 midiOutPlayNextPolyEvent Heap Overflow (2012-01-10)'),
+    _('Java Applet Rhino Script Engine Remote Code Execution (2011-10-18)'),
+    _('MS11-050 IE mshtml!CObjectElement Use After Free  (2011-06-16)'),
+    _('Adobe Flash Player 10.2.153.1 SWF Memory Corruption Vulnerability (2011-04-11)'),
+    _('Cisco AnyConnect VPN Client ActiveX URL Property Download and Execute (2011-06-01)'),
+    _('Internet Explorer CSS Import Use After Free (2010-11-29)'),
+    _('Microsoft WMI Administration Tools ActiveX Buffer Overflow (2010-12-21)'),
+    _('Internet Explorer CSS Tags Memory Corruption (2010-11-03)'),
+    _('Sun Java Applet2ClassLoader Remote Code Execution (2011-02-15)'),
+    _('Sun Java Runtime New Plugin docbase Buffer Overflow (2010-10-12)'),
+    _('Microsoft Windows WebDAV Application DLL Hijacker (2010-08-18)'),
+    _('Adobe Flash Player AVM Bytecode Verification Vulnerability (2011-03-15)'),
+    _('Adobe Shockwave rcsL Memory Corruption Exploit (2010-10-21)'),
+    _('Adobe CoolType SING Table "uniqueName" Stack Buffer Overflow (2010-09-07)'),
+    _('Apple QuickTime 7.6.7 Marshaled_pUnk Code Execution (2010-08-30)'),
+    _('Microsoft Help Center XSS and Command Execution (2010-06-09)'),
+    _('Microsoft Internet Explorer iepeers.dll Use After Free (2010-03-09)'),
+    _('Microsoft Internet Explorer "Aurora" Memory Corruption (2010-01-14)'),
+    _('Microsoft Internet Explorer Tabular Data Control Exploit (2010-03-0)'),
+    _('Microsoft Internet Explorer 7 Uninitialized Memory Corruption (2009-02-10)'),
+    _('Microsoft Internet Explorer Style getElementsbyTagName Corruption (2009-11-20)'),
+    _('Microsoft Internet Explorer isComponentInstalled Overflow (2006-02-24)'),
+    _('Microsoft Internet Explorer Data Binding Corruption (2008-12-07)'),
+    _('Microsoft Internet Explorer Unsafe Scripting Misconfiguration (2010-09-20)'),
+    _('FireFox 3.5 escape Return Value Memory Corruption (2009-07-13)'),
+    _('FireFox 3.6.16 mChannel use after free vulnerability (2011-05-10)'),
+    _('Metasploit Browser Autopwn (USE AT OWN RISK!)\n')]
 
-browser_exploits_text = """
- Entrez l'exploit navigateur que vous souhaitez utiliser [8] :
-"""
+browser_exploits_text = _("""
+ Enter the browser exploit you would like to use [8]:
+""")
 
-# ceci concerne les vecteurs d'attaque powershell
-powershell_menu = ['Injecteur de Shellcode alphanumérique PowerShell',
-                   'Shell inversé PowerShell',
-                   'Shell d\'écoute PowerShell',
-                   'Extraction de la base SAM via PowerShell',
+# this is for the powershell attack vectors
+powershell_menu = [_('Powershell Alphanumeric Shellcode Injector'),
+                   _('Powershell Reverse Shell'),
+                   _('Powershell Bind Shell'),
+                   _('Powershell Dump SAM Database'),
                    '0D']
 
-powershell_text = ("""
-Le module """ + bcolors.BOLD + """vecteur d'attaque PowerShell""" + bcolors.ENDC + """ vous permet de créer des attaques spécifiques à PowerShell. Ces attaques vous permettent d'utiliser PowerShell, disponible par défaut sur tous les systèmes Windows Vista et ultérieurs. PowerShell offre un terrain fertile pour déployer des payloads et effectuer des opérations qui ne déclenchent pas les technologies de prévention.\n""")
+powershell_text = _("""
+The {bold}Powershell Attack Vector{endc} module allows you to create PowerShell specific attacks. These attacks will allow you to use PowerShell which is available by default in all operating systems Windows Vista and above. PowerShell provides a fruitful landscape for deploying payloads and performing functions that  do not get triggered by preventative technologies.
+""").format(bold=bcolors.BOLD, endc=bcolors.ENDC)
 
 
-encoder_menu = ['shikata_ga_nai',
-                'Pas d\'encodage',
-                'Multi-Encoder',
-                'Exécutable piégé (backdoor)\n']
+encoder_menu = [_('shikata_ga_nai'),
+                _('No Encoding'),
+                _('Multi-Encoder'),
+                _('Backdoored Executable\n')]
 
-encoder_text = """
-Sélectionnez l'une des options ci-dessous ; "exécutable piégé" est généralement la meilleure.
-Cependant, la plupart sont encore détectés par les antivirus. Il peut être nécessaire d'effectuer
-un packing/chiffrement supplémentaire pour contourner la détection antivirus de base.
-"""
+encoder_text = _("""
+Select one of the below, 'backdoored executable' is typically the best. However,
+most still get picked up by AV. You may need to do additional packing/crypting
+in order to get around basic AV detection.
+""")
 
-dll_hijacker_text = """
- La vulnérabilité DLL Hijacker permet à des extensions de fichiers normales
- d'appeler des fichiers .dll locaux (ou distants) qui peuvent ensuite appeler
- votre payload ou exécutable. Dans ce scénario, l'attaque sera compactée dans
- un fichier zip et, lorsque l'utilisateur ouvrira l'extension de fichier,
- déclenchera la DLL puis finalement notre payload. Au moment de cette version,
- toutes ces extensions de fichiers ont été testées et semblent fonctionner et
- ne sont pas corrigées. Cette liste sera mise à jour continuellement avec le temps.
-"""
+dll_hijacker_text = _("""
+ The DLL Hijacker vulnerability will allow normal file extensions to
+ call local (or remote) .dll files that can then call your payload or
+ executable. In this scenario it will compact the attack in a zip file
+ and when the user opens the file extension, will trigger the dll then
+ ultimately our payload. During the time of this release, all of these
+ file extensions were tested and appear to work and are not patched. This
+ will continuously be updated as time goes on.
+""")
 
 fakeap_dhcp_menu = ['10.0.0.100-254',
                     '192.168.10.100-254\n']
 
-fakeap_dhcp_text = "Veuillez choisir la configuration DHCP que vous souhaitez utiliser : "
+fakeap_dhcp_text = _("Please choose the DHCP configuration you would like to use: ")

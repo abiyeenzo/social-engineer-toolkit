@@ -13,6 +13,7 @@ import sys
 import socket
 from src.core.setcore import *
 from src.core.menu import text
+from src.core.i18n import translate as _
 
 try:
     raw_input
@@ -41,9 +42,9 @@ msf_path = meta_path()
 if operating_system == "posix":
     if os.geteuid() != 0:
         print(
-            "\n The Social-Engineer Toolkit (SET) - par David Kennedy (ReL1K)")
+            _("\n The Social-Engineer Toolkit (SET) - by David Kennedy (ReL1K)"))
         print(
-            "\n N'est pas exécuté en tant que root. \n\nFermeture du Social-Engineer Toolkit (SET).\n")
+            _("\n Not running as root. \n\nExiting the Social-Engineer Toolkit (SET).\n"))
         sys.exit(1)
 
 define_version = get_version()
@@ -57,7 +58,7 @@ try:
         debug_msg(me, "printing 'text.main'", 5)
         show_main_menu = create_menu(text.main_text, text.main)
         # special case of list item 99
-        print('\n  99) Retour au menu principal.\n')
+        print(_('\n  99) Return back to the main menu.\n'))
         main_menu_choice = (raw_input(setprompt("0", "")))
 
         if main_menu_choice == 'exit':
@@ -66,7 +67,7 @@ try:
         if operating_system == "windows" or msf_path == False:
             if main_menu_choice == "1" or main_menu_choice == "4" or main_menu_choice == "8" or main_menu_choice == "3":
                 print_warning(
-                    "Désolé. Cette fonctionnalité n'est pas encore prise en charge sous Windows, ou Metasploit n'a pas été trouvé.")
+                    _("Sorry. This feature is not yet supported in Windows or Metasploit was not found."))
                 return_continue()
                 break
 
@@ -146,7 +147,7 @@ try:
                 if operating_system == "windows" or msf_path == False:
                     if attack_vector == "2" or attack_vector == "9":
                         print_warning(
-                            "Désolé. Cette option n'est pas encore disponible sous Windows, ou Metasploit n'a pas été trouvé.")
+                            _("Sorry. This option is not yet available in Windows or Metasploit was not found."))
                         return_continue()
                         break
 
@@ -157,10 +158,10 @@ try:
                 try:
                     attack_check = int(attack_vector)
                 except:
-                    print_error("ERREUR : sélection invalide, retour au menu.")
+                    print_error(_("ERROR:Invalid selection, going back to menu."))
                     break
                 if attack_check > 9:
-                    print_warning("Option invalide")
+                    print_warning(_("Invalid option"))
                     return_continue()
                     break
 
@@ -181,7 +182,7 @@ try:
                 #if attack_vector != "7":
                 debug_msg(me, "printing 'text.webattack_vectors_menu'", 5)
                 show_webvectors_menu = create_menu(text.webattack_vectors_text, text.webattack_vectors_menu)
-                print('  99) Retour au menu Web Attack\n')
+                print(_('  99) Return to Webattack Menu\n'))
                 choice3 = raw_input(setprompt(["2"], ""))
 
                 if choice3 == 'exit':
@@ -199,20 +200,20 @@ try:
 
                     # webjacking and web templates are not allowed
                     if attack_vector == "5" and choice3 == "1":
-                        print(bcolors.RED + "\n Désolé, vous ne pouvez pas utiliser le vecteur Web Jacking avec les modèles web." + bcolors.ENDC)
+                        print(bcolors.RED + _("\n Sorry, you can't use the Web Jacking vector with Web Templates.") + bcolors.ENDC)
                         return_continue()
                         break
 
                     # if we select multiattack, web templates are not allowed
                     if attack_vector == "6" and choice3 == "1":
-                        print(bcolors.RED + "\n Désolé, vous ne pouvez pas utiliser le vecteur multi-attaques avec les modèles web." + bcolors.ENDC)
+                        print(bcolors.RED + _("\n Sorry, you can't use the Multi-Attack vector with Web Templates.") + bcolors.ENDC)
                         return_continue()
                         break
 
                     # if we select web template and tabnabbing, throw this
                     # error and bomb out to menu
                     if attack_vector == "4" and choice3 == "1":
-                        print(bcolors.RED + "\n Désolé, vous ne pouvez utiliser l'option de clonage qu'avec la méthode tabnabbing." + bcolors.ENDC)
+                        print(bcolors.RED + _("\n Sorry, you can only use the cloner option with the tabnabbing method.") + bcolors.ENDC)
                         return_continue()
                         break
 
@@ -239,8 +240,8 @@ try:
                         attack_vector = "harvester"
                         filewrite.write(attack_vector)
                         filewrite.close()
-                        print_info("Le Credential Harvester vous permet d'utiliser les capacités de clonage de SET")
-                        print_info("pour récupérer des identifiants ou des paramètres d'un site web et les intégrer dans un rapport")
+                        print_info(_("Credential harvester will allow you to utilize the clone capabilities within SET"))
+                        print_info(_("to harvest credentials or parameters from a website as well as place them into a report"))
 
                     # specify tab nabbing attack vector
                     if attack_vector == '4':
@@ -288,7 +289,7 @@ try:
                                 except Exception as error:
                                     log(error)
                                     ipaddr = raw_input(
-                                        setprompt(["2"], "L'adresse IP de votre interface"))
+                                        setprompt(["2"], _("Your interface IP Address")))
                                     update_options("IPADDR=" + ipaddr)
 
                         # if AUTO_DETECT=OFF prompt for IP Address
@@ -303,19 +304,19 @@ try:
                                                 # this part is to determine if NAT/port forwarding is used
                                                 # if it is it'll prompt for
                                                 # additional questions
-                                                print_info("Le NAT/Port Forwarding peut être utilisé dans les cas où votre machine SET")
-                                                print_info("n'est pas exposée en externe et peut avoir une adresse IP différente de celle de votre listener inversé.")
-                                                nat_or_fwd = yesno_prompt('0', 'Utilisez-vous le NAT/Port Forwarding [yes|no]')
+                                                print_info(_("NAT/Port Forwarding can be used in the cases where your SET machine is"))
+                                                print_info(_("not externally exposed and may be a different IP address than your reverse listener."))
+                                                nat_or_fwd = yesno_prompt('0', _('Are you using NAT/Port Forwarding [yes|no]'))
                                                 if nat_or_fwd == "YES":
-                                                    ipquestion = raw_input(setprompt(["2"], "Adresse IP du serveur web SET (peut être votre IP externe ou votre nom d'hôte)"))
+                                                    ipquestion = raw_input(setprompt(["2"], _("IP address to SET web server (this could be your external IP or hostname)")))
                                                     filewrite2 = open(userconfigpath + "interface", "w")
                                                     filewrite2.write(ipquestion)
                                                     filewrite2.close()
                                                     # is your payload/listener
                                                     # on a different IP?
-                                                    natquestion = yesno_prompt(["2"], "Votre gestionnaire de payload (metasploit) est-il sur une IP différente de votre adresse NAT/Port FWD externe [yes|no]")
+                                                    natquestion = yesno_prompt(["2"], _("Is your payload handler (metasploit) on a different IP from your external NAT/Port FWD address [yes|no]"))
                                                     if natquestion == 'YES':
-                                                        ipaddr = raw_input(setprompt(["2"], "Adresse IP pour le gestionnaire inversé (reverse payload)"))
+                                                        ipaddr = raw_input(setprompt(["2"], _("IP address for the reverse handler (reverse payload)")))
                                                     if natquestion == "NO":
                                                         ipaddr = ipquestion
                                                 # if you arent using NAT/Port
@@ -324,33 +325,32 @@ try:
                                                     ipaddr = grab_ipaddress()
 
                                 if attack_vector == "harvester" or attack_vector == "tabnabbing" or attack_vector == "webjacking":
-                                    print("""
+                                    print(_("""
 -------------------------------------------------------------------------------
---- * IMPORTANT * LISEZ CECI AVANT DE SAISIR L'ADRESSE IP * IMPORTANT * ---
+--- * IMPORTANT * READ THIS BEFORE ENTERING IN THE IP ADDRESS * IMPORTANT * ---
 
-Le fonctionnement consiste à cloner un site et à rechercher les champs de
-formulaire à réécrire. Si les champs POST ne suivent pas les méthodes
-habituelles d'envoi de formulaires, cela peut échouer. Si c'est le cas, vous
-pouvez toujours enregistrer le HTML, réécrire les formulaires sous une forme
-standard et utiliser la fonctionnalité "IMPORT". De plus, point vraiment
-important :
+The way that this works is by cloning a site and looking for form fields to
+rewrite. If the POST fields are not usual methods for posting forms this
+could fail. If it does, you can always save the HTML, rewrite the forms to
+be standard forms and use the "IMPORT" feature. Additionally, really
+important:
 
-Si vous utilisez une ADRESSE IP EXTERNE, vous devez indiquer ci-dessous
-l'adresse IP EXTERNE, et non votre adresse NAT. De plus, si vous ne connaissez
-pas les bases du réseau et que vous avez une adresse IP privée, vous devrez
-faire du port forwarding vers votre adresse IP NAT depuis votre adresse IP
-externe. Un navigateur ne sait pas communiquer avec une adresse IP privée ;
-donc si vous ne précisez pas d'adresse IP externe alors que vous utilisez
-ceci depuis une perspective externe, cela ne fonctionnera pas. Ce n'est pas
-un problème de SET, c'est ainsi que fonctionne le réseau.
-""")
+If you are using an EXTERNAL IP ADDRESS, you need to place the EXTERNAL
+IP address below, not your NAT address. Additionally, if you don't know
+basic networking concepts, and you have a private IP address, you will
+need to do port forwarding to your NAT IP address from your external IP
+address. A browser doesn’t know how to communicate with a private IP
+address, so if you don't specify an external IP address if you are using
+this from an external perspective, it will not work. This isn't a SET issue
+this is how networking works.
+"""))
 
                                     try:
                                         revipaddr = detect_public_ip()
-                                        ipaddr = raw_input(setprompt(["2"], "Adresse IP pour le retour POST dans Harvester/Tabnabbing [" + revipaddr + "]"))
+                                        ipaddr = raw_input(setprompt(["2"], _("IP address for the POST back in Harvester/Tabnabbing [") + revipaddr + "]"))
                                         if ipaddr == "": ipaddr=revipaddr
                                     except Exception:
-                                        rhost = raw_input("Entrez l'adresse IP pour le retour POST dans Harvester/Tabnabbing : ")
+                                        rhost = raw_input(_("Enter the IP address for POST back in Harvester/Tabnabbing: "))
                                         ipaddr = rhost
 
                                 if check_options("IPADDR=") != 0:
@@ -459,7 +459,7 @@ un problème de SET, c'est ainsi que fonctionne le réseau.
                                 update_options("ATTACK_VECTOR=HTA")
                                 gen_hta_cool_stuff()
                                 attack_vector = "hta"
-                                print_status("Démarrage automatique d'Apache pour vous...")
+                                print_status(_("Automatically starting Apache for you..."))
                                 subprocess.Popen("service apache2 start", shell=True).wait()
 
                             if attack_vector != "harvester":
@@ -498,11 +498,11 @@ un problème de SET, c'est ainsi que fonctionne le réseau.
                             os.remove(userconfigpath + "site.template")
                         filewrite = open(userconfigpath + "site.template", "w")
                         filewrite.write("TEMPLATE=CUSTOM")
-                        print_info("SET prend en charge aussi bien HTTP que HTTPS")
+                        print_info(_("SET supports both HTTP and HTTPS"))
                         # specify the site to clone
-                        print_info("Exemple : http://www.cesituestfactice.com")
+                        print_info(_("Example: http://www.thisisafakesite.com"))
                         URL = raw_input(
-                            setprompt(["2"], "Entrez l'URL à cloner"))
+                            setprompt(["2"], _("Enter the url to clone")))
                         match = re.search("http://", URL)
                         match1 = re.search("https://", URL)
                         if not match:
@@ -532,7 +532,7 @@ un problème de SET, c'est ainsi que fonctionne le réseau.
                             gen_hta_cool_stuff()
                             attack_vector = "hta"
                             print_status(
-                                "Démarrage automatique d'Apache pour vous...")
+                                _("Automatically starting Apache for you..."))
                             subprocess.Popen(
                                 "service apache2 start", shell=True).wait()
 
@@ -648,11 +648,11 @@ un problème de SET, c'est ainsi que fonctionne le réseau.
                         if not os.path.isdir(userconfigpath + "web_clone"):
                             os.makedirs(userconfigpath + "web_clone")
                         print_warning(
-                            "Exemple : /home/website/ (assurez-vous de terminer par /)")
+                            _("Example: /home/website/ (make sure you end with /)"))
                         print_warning(
-                            "Notez aussi qu'il DOIT y avoir un fichier index.html dans le dossier que vous indiquez.")
+                            _("Also note that there MUST be an index.html in the folder you point to."))
                         URL = raw_input(
-                            setprompt(["2"], "Chemin vers le site web à cloner"))
+                            setprompt(["2"], _("Path to the website to be cloned")))
                         if not URL.endswith("/"):
                             if not URL.endswith("index.html"):
                                 URL = URL + "/"
@@ -665,28 +665,28 @@ un problème de SET, c'est ainsi que fonctionne le réseau.
                                     shutil.copyfile(
                                         URL, "%s/web_clone/index.html" % (userconfigpath))
                                 else:
-                                    print_error("ERREUR : index.html introuvable !!")
+                                    print_error(_("ERROR:index.html not found!!"))
                                     print_error(
-                                        "ERREUR : avez-vous indiqué le chemin d'un dossier plutôt qu'un fichier ?")
+                                        _("ERROR:Did you just put the path in, not file?"))
                                     print_error(
-                                        "Fermeture du Social-Engineer Toolkit... Hack the Gibson.\n")
+                                        _("Exiting the Social-Engineer Toolkit...Hack the Gibson.\n"))
                                     exit_set()
 
                         if os.path.isfile(URL + "index.html"):
                             print_status(
-                                "Index.html trouvé. Voulez-vous copier tout le dossier ou juste index.html ?")
+                                _("Index.html found. Do you want to copy the entire folder or just index.html?"))
                             choice = raw_input(
-                                "\n1. Copier seulement index.html\n2. Copier tout le dossier\n\nFaites votre choix [1/2] : ")
+                                _("\n1. Copy just the index.html\n2. Copy the entire folder\n\nEnter choice [1/2]: "))
                             if choice == "1" or choice == "":
                                 if os.path.isfile("%s/web_clone/index.html" % (userconfigpath)):
                                     os.remove("%s/web_clone/index.html" % (userconfigpath))
                                 shutil.copyfile(URL + "index.html", "%s/web_clone/index.html" % (userconfigpath))
                             if choice == "2":
                                 if os.path.isdir(URL + "src/webattack"):
-                                    print_error("Vous ne pouvez pas indiquer un dossier dans le chemin par défaut de SET. Cela créerait une boucle. Essayez autre chose.")
-                                    URL = raw_input("Entrez le dossier à importer dans SET, cela NE PEUT PAS être le dossier de SET : ")
+                                    print_error(_("You cannot specify a folder in the default SET path. This goes into a loop Try something different."))
+                                    URL = raw_input(_("Enter the folder to import into SET, this CANNOT be the SET directory: "))
                                     if os.path.isdir(URL + "src/webattack" % (URL)):
-                                        print_error("Vous avez tenté la même chose. Fermeture en cours.")
+                                        print_error(_("You tried the same thing. Exiting now."))
                                         sys.exit()
                                 copyfolder(URL, "%s/web_clone/" % userconfigpath)
 
@@ -711,7 +711,7 @@ un problème de SET, c'est ainsi que fonctionne le réseau.
                             gen_hta_cool_stuff()
                             attack_vector = "hta"
                             print_status(
-                                "Démarrage automatique d'Apache pour vous...")
+                                _("Automatically starting Apache for you..."))
                             subprocess.Popen(
                                 "service apache2 start", shell=True).wait()
 
@@ -757,9 +757,9 @@ un problème de SET, c'est ainsi que fonctionne le réseau.
                         # cred harvester for auto site here
                         if attack_vector == "harvester":
                             # get the url
-                            print_info("Exemple : http://www.truc.com")
+                            print_info(_("Example: http://www.blah.com"))
                             URL = raw_input(
-                                setprompt(["2"], "URL du site web que vous avez importé"))
+                                setprompt(["2"], _("URL of the website you imported")))
                             match = re.search("http://", URL)
                             match1 = re.search("https://", URL)
                             if not match:
@@ -782,9 +782,9 @@ un problème de SET, c'est ainsi que fonctionne le réseau.
                         # tabnabbing for auto site here
                         if attack_vector == "tabnabbing" or attack_vector == "webjacking":
                             # get the url
-                            print_info("Exemple : http://www.truc.com")
+                            print_info(_("Example: http://www.blah.com"))
                             URL = raw_input(
-                                setprompt(["2"], "URL du site web que vous avez importé"))
+                                setprompt(["2"], _("URL of the website you imported")))
                             match = re.search("http://", URL)
                             match1 = re.search("https://", URL)
                             if not match:
@@ -828,11 +828,11 @@ un problème de SET, c'est ainsi que fonctionne le réseau.
 
                     # Return to main menu
                     if choice3 == '4':
-                        print (" Retour au menu principal.\n")
+                        print (_(" Returning to main menu.\n"))
                         break
                 except KeyboardInterrupt:
                     print(
-                        " Control-C détecté, retour au menu précédent..")
+                        _(" Control-C detected, bombing out to previous menu.."))
                     break
 
         # Define Auto-Infection USB/CD Method here
@@ -859,7 +859,7 @@ un problème de SET, c'est ainsi que fonctionne le réseau.
             # if fileformat
             if infectious_menu_choice == "1":
                 ipaddr = raw_input(
-                    setprompt(["3"], "Adresse IP pour la connexion inversée (payload)"))
+                    setprompt(["3"], _("IP address for the reverse connection (payload)")))
                 update_options("IPADDR=" + ipaddr)
 
             filewrite1 = open(userconfigpath + "payloadgen", "w")
@@ -940,7 +940,7 @@ un problème de SET, c'est ainsi que fonctionne le réseau.
                 filewrite.write(teensy_menu_choice + "\n")
                 if teensy_menu_choice != "3" and teensy_menu_choice != "7" and teensy_menu_choice != "8" and teensy_menu_choice != "9" and teensy_menu_choice != "10" and teensy_menu_choice != "11" and teensy_menu_choice != "12" and teensy_menu_choice != "13" and teensy_menu_choice != "14":
                     yes_or_no = yesno_prompt(
-                        "0", "Voulez-vous créer un payload et un listener [yes|no] : ")
+                        "0", _("Do you want to create a payload and listener [yes|no]: "))
                     if yes_or_no == "YES":
                         filewrite.write("payload")
                         filewrite.close()
@@ -980,19 +980,19 @@ un problème de SET, c'est ainsi que fonctionne le réseau.
                 # if we are doing the sd2teensy osx attack
                 if teensy_menu_choice == "9":
                     print_status(
-                        "Génération du fichier ino SD2Teensy OSX pour vous...")
+                        _("Generating the SD2Teensy OSX ino file for you..."))
                     if not os.path.isdir(userconfigpath + "reports/osx_sd2teensy"):
                         os.makedirs(userconfigpath + "reports/osx_sd2teensy")
                     shutil.copyfile("src/teensy/osx_sd2teensy.ino",
                                     "%s/reports/osx_sd2teensy/osx_sd2teensy.ino" % (userconfigpath))
                     print_status(
-                        "Le fichier a été exporté vers ~/.set/reports/osx_sd2teensy/osx_sd2teensy.ino")
+                        _("File has been exported to ~/.set/reports/osx_sd2teensy/osx_sd2teensy.ino"))
                     return_continue()
 
                 # if we are doing the X10 Arduino Sniffer
                 if teensy_menu_choice == "10":
                     print_status(
-                        "Génération du fichier ino du sniffer Arduino et des bibliothèques..")
+                        _("Generating the Arduino sniffer and libraries ino.."))
                     if not os.path.isdir(userconfigpath + "reports/arduino_sniffer"):
                         os.makedirs(userconfigpath + "reports/arduino_sniffer")
                     shutil.copyfile("src/teensy/x10/x10_sniffer.ino",
@@ -1000,13 +1000,13 @@ un problème de SET, c'est ainsi que fonctionne le réseau.
                     shutil.copyfile("src/teensy/x10/libraries.zip",
                                     userconfigpath + "reports/arduino_sniffer/libraries.zip")
                     print_status(
-                        "Fichiers et bibliothèques du sniffer Arduino exportés vers ~/.set/reports/arduino_sniffer")
+                        _("Arduino sniffer files and libraries exported to ~/.set/reports/arduino_sniffer"))
                     return_continue()
 
                 # if we are doing the X10 Jammer
                 if teensy_menu_choice == "11":
                     print_status(
-                        "Génération du fichier ino du jammer Arduino et des bibliothèques...")
+                        _("Generating the Arduino jammer ino and libraries..."))
                     if not os.path.isdir(userconfigpath + "reports/arduino_jammer"):
                         os.makedirs(userconfigpath + "reports/arduino_jammer")
                     shutil.copyfile("src/teensy/x10/x10_blackout.ino",
@@ -1014,13 +1014,13 @@ un problème de SET, c'est ainsi que fonctionne le réseau.
                     shutil.copyfile("src/teensy/x10/libraries.zip",
                                     userconfigpath + "reports/arduino_jammer/libraries.zip")
                     print_status(
-                        "Fichiers et bibliothèques du jammer Arduino exportés vers ~/.set/reports/arduino_jammer")
+                        _("Arduino jammer files and libraries exported to ~/.set/reports/arduino_jammer"))
                     return_continue()
 
                 # powershell shellcode injection
                 if teensy_menu_choice == "12":
                     print_status(
-                        "Génération du fichier ino d'injection Shellcode PowerShell..")
+                        _("Generating the Powershell - Shellcode injection ino.."))
                     debug_msg(
                         me, "importing 'src.teensy.powershell_shellcode'", 1)
                     import src.teensy.powershell_shellcode
@@ -1028,7 +1028,7 @@ un problème de SET, c'est ainsi que fonctionne le réseau.
 		# HID Msbuild compile to memory Shellcode Attack
                 if teensy_menu_choice == "14":
                     print_status(
-                        "Attaque HID Msbuild compilation en mémoire Shellcode sélectionnée")
+                        _("HID Msbuild compile to memory Shellcode Attack selected"))
                     debug_msg(
                         me, "importing '-----file-----'", 1)
                     import src.teensy.ino_gen
@@ -1043,7 +1043,7 @@ un problème de SET, c'est ainsi que fonctionne le réseau.
 
             if operating_system == "windows":
                 print_warning(
-                    "Désolé. Le vecteur d'attaque sans fil n'est pas encore pris en charge sous Windows.")
+                    _("Sorry. The wireless attack vector is not yet supported in Windows."))
                 return_continue()
 
             if operating_system != "windows":
@@ -1066,11 +1066,11 @@ un problème de SET, c'est ainsi que fonctionne le réseau.
                 if not os.path.isfile(airbase_path):
                     if not os.path.isfile("/usr/local/sbin/airbase-ng"):
                         print_warning(
-                            "Attention, airbase-ng n'a pas été détecté sur votre système. Utilisation de celui fourni dans SET.")
+                            _("Warning airbase-ng was not detected on your system. Using one in SET."))
                         print_warning(
-                            "Si vous rencontrez des problèmes, vous devriez installer airbase-ng sur votre système.")
+                            _("If you experience issues, you should install airbase-ng on your system."))
                         print_warning(
-                            "Vous pouvez le configurer via set_config en indiquant le chemin vers airbase-ng.")
+                            _("You can configure it through the set_config and point to airbase-ng."))
                         airbase_path = ("src/wireless/airbase-ng")
                     if os.path.isfile("/usr/local/sbin/airbase-ng"):
                         airbase_path = "/usr/local/sbin/airbase-ng"
@@ -1118,13 +1118,13 @@ un problème de SET, c'est ainsi que fonctionne le réseau.
 
                             # if we want to return to the main menu
                             if wireless_menu_choice == "99":
-                                print (" [*] Retour au menu principal ...")
+                                print (_(" [*] Returning to the main menu ..."))
                                 break
 
                 if not os.path.isfile(dnsspoof_path):
                     if not os.path.isfile("/usr/local/sbin/dnsspoof"):
                         print_error(
-                            "ERREUR : DNS Spoof n'a pas été détecté. Vérifiez le fichier set_config.")
+                            _("ERROR:DNS Spoof was not detected. Check the set_config file."))
                         return_continue()
 
         #
@@ -1136,15 +1136,15 @@ un problème de SET, c'est ainsi que fonctionne le réseau.
             try:
                 from PIL import Image, ImageDraw
                 from src.qrcode.qrgenerator import *
-                print("""
-Le vecteur d'attaque QRCode va créer pour vous un QRCode avec l'URL de votre choix.
+                print(_("""
+The QRCode Attack Vector will create a QRCode for you with whatever URL you want.
 
-Une fois le QRCode généré, sélectionnez un vecteur d'attaque supplémentaire dans SET et
-déployez le QRCode vers votre victime. Par exemple, générez un QRCode de l'Applet Java
-de SET et envoyez le QRCode par email.
-""")
+When you have the QRCode Generated, select an additional attack vector within SET and
+deploy the QRCode to your victim. For example, generate a QRCode of the SET Java Applet
+and send the QRCode via a mailer.
+"""))
                 url = raw_input(
-                    "Entrez l'URL vers laquelle le QRCode doit pointer (99 pour sortir) : ")
+                    _("Enter the URL you want the QRCode to go to (99 to exit): "))
                 if url != "99":
                     # if the reports directory does not exist then create it
                     if not os.path.isdir("%s/reports" % (userconfigpath)):
@@ -1154,11 +1154,11 @@ de SET et envoyez le QRCode par email.
 
             except ImportError:
                 print_error(
-                    "Ce module nécessite PIL (ou Pillow) et qrcode pour fonctionner correctement.")
+                    _("This module requires PIL (Or Pillow) and qrcode to work properly."))
                 print_error(
-                    "Faites simplement pip install Pillow; pip install qrcode")
+                    _("Just do pip install Pillow; pip install qrcode"))
                 print_error(
-                    "Sinon, référez-vous à ceci pour l'installation : http://pillow.readthedocs.io/en/3.3.x/installation.html")
+                    _("Else refer to here for installation: http://pillow.readthedocs.io/en/3.3.x/installation.html"))
                 return_continue()
 
         # Main Menu choice 9: PowerShell Attacks
@@ -1183,6 +1183,6 @@ de SET et envoyez le QRCode par email.
 
 # handle keyboard interrupts
 except KeyboardInterrupt:
-    print("\n\n Merci d'avoir " + bcolors.RED + "fait vos achats" + bcolors.ENDC +
-          " avec le Social-Engineer Toolkit.\n\n Hack the Gibson... et souvenez-vous... les câlins valent plus que les poignées de main.\n")
+    print(_("\n\n Thank you for ") + bcolors.RED + _("shopping") + bcolors.ENDC +
+          _(" with the Social-Engineer Toolkit.\n\n Hack the Gibson...and remember...hugs are worth more than handshakes.\n"))
 
