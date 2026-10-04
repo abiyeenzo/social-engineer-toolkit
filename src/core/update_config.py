@@ -139,13 +139,13 @@ CONFIG_DATE='""" + timestamp + """'\n""")
     sleep(1)
     sys.path.append("/etc/setoolkit")
     from set_config import CONFIG_DATE as verify
-    print_info("New set.config.py file generated on: %s" % timestamp)
-    print_info("Verifying configuration update...")
+    print_info("Nouveau fichier set.config.py généré le : %s" % timestamp)
+    print_info("Vérification de la mise à jour de la configuration...")
     if verify == timestamp:
-        print_status("Update verified, config timestamp is: %s" % timestamp)
+        print_status("Mise à jour vérifiée, l'horodatage de la config est : %s" % timestamp)
     else:
-        print_error("Update failed? Timestamp on config file is: %s" % verify)
-    print_status("SET is using the new config, no need to restart")
+        print_error("Mise à jour échouée ? L'horodatage du fichier de config est : %s" % verify)
+    print_status("SET utilise la nouvelle configuration, pas besoin de redémarrer")
     # return_continue()
 
 if __name__ == "__main__":
