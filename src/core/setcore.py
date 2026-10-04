@@ -260,13 +260,13 @@ def yesno_prompt(category, text):
             response = "YES"
             valid_response = True
         else:
-            print_warning("valid responses are 'n|y|N|Y|no|yes|No|Yes|NO|YES'")
+            print_warning("les réponses valides sont 'n|y|N|Y|no|yes|No|Yes|NO|YES'")
     return response
 
 
 def return_continue():
-    print(("\n      Press " + bcolors.RED +
-           "<return> " + bcolors.ENDC + "to continue"))
+    print(("\n      Appuyez sur " + bcolors.RED +
+           "<entrée> " + bcolors.ENDC + "pour continuer"))
     pause = raw_input()
 
 # DEBUGGING #############
@@ -350,7 +350,7 @@ class create_menu:
                 else:
                     print(('  %s) %s' % (menunum, option)))
             else:
-                print('\n  99) Return to Main Menu\n')
+                print('\n  99) Retour au menu principal\n')
         return
 
 
@@ -373,7 +373,7 @@ def validate_ip(address):
                 debug_msg("setcore", "this is a valid IP address", 5)
                 return True
             else:
-                print_error("This is not a valid IP address...")
+                print_error("Ceci n'est pas une adresse IP valide...")
                 raise socket.error
 
         else:
@@ -664,7 +664,7 @@ def site_cloner(website, exportpath, *args):
         import cloner
 
     # copy the file to a new folder
-    print_status("Site has been successfully cloned and is: " + exportpath)
+    print_status("Le site a été cloné avec succès et se trouve ici : " + exportpath)
     os.makedirs(exportpath, exist_ok=True)
     web_clone_path = os.path.join(userconfigpath, "web_clone")
     for entry in os.listdir(web_clone_path):
@@ -934,19 +934,19 @@ def show_banner(define_version, graphic):
 
     print(bcolors.BLUE + """
 [---]        The Social-Engineer Toolkit (""" + bcolors.YELLOW + """SET""" + bcolors.BLUE + """)         [---]
-[---]        Created by:""" + bcolors.RED + """ David Kennedy """ + bcolors.BLUE + """(""" + bcolors.YELLOW + """ReL1K""" + bcolors.BLUE + """)         [---]
-                      Version: """ + bcolors.RED + """%s""" % (define_version) + bcolors.BLUE + """
-                    Codename: '""" + bcolors.YELLOW + """Maverick""" + bcolors.ENDC + bcolors.BLUE + """'
-[---]        Follow us on Twitter: """ + bcolors.PURPLE + """@TrustedSec""" + bcolors.BLUE + """         [---]
-[---]        Follow me on Twitter: """ + bcolors.PURPLE + """@HackingDave""" + bcolors.BLUE + """        [---]
-[---]       Homepage: """ + bcolors.YELLOW + """https://www.trustedsec.com""" + bcolors.BLUE + """       [---]
-""" + bcolors.GREEN + """        Welcome to the Social-Engineer Toolkit (SET).
-         The one stop shop for all of your SE needs.
+[---]        Créé par :""" + bcolors.RED + """ David Kennedy """ + bcolors.BLUE + """(""" + bcolors.YELLOW + """ReL1K""" + bcolors.BLUE + """)         [---]
+                      Version : """ + bcolors.RED + """%s""" % (define_version) + bcolors.BLUE + """
+                    Nom de code : '""" + bcolors.YELLOW + """Maverick""" + bcolors.ENDC + bcolors.BLUE + """'
+[---]        Suivez-nous sur Twitter : """ + bcolors.PURPLE + """@TrustedSec""" + bcolors.BLUE + """         [---]
+[---]        Suivez-moi sur Twitter : """ + bcolors.PURPLE + """@HackingDave""" + bcolors.BLUE + """        [---]
+[---]       Site web : """ + bcolors.YELLOW + """https://www.trustedsec.com""" + bcolors.BLUE + """       [---]
+""" + bcolors.GREEN + """        Bienvenue dans le Social-Engineer Toolkit (SET).
+         La solution unique pour tous vos besoins en ingénierie sociale.
 """)
-    print(bcolors.BOLD + """   The Social-Engineer Toolkit is a product of TrustedSec.\n\n           Visit: """ +
+    print(bcolors.BOLD + """   Le Social-Engineer Toolkit est un produit de TrustedSec.\n\n           Visitez : """ +
           bcolors.GREEN + """https://www.trustedsec.com\n""" + bcolors.ENDC)
-    print(bcolors.BLUE + """   It's easy to update using the PenTesters Framework! (PTF)\nVisit """ + bcolors.YELLOW +
-          """https://github.com/trustedsec/ptf""" + bcolors.BLUE + """ to update all your tools!\n\n""" + bcolors.ENDC)
+    print(bcolors.BLUE + """   Il est facile de le mettre à jour avec le PenTesters Framework ! (PTF)\nVisitez """ + bcolors.YELLOW +
+          """https://github.com/trustedsec/ptf""" + bcolors.BLUE + """ pour mettre à jour tous vos outils !\n\n""" + bcolors.ENDC)
 
     # here we check if  there is a new version of SET - if there is, then
     # display a banner
@@ -975,8 +975,8 @@ def show_banner(define_version, graphic):
 
             if cv != version:
                 if version != "":
-                    print(bcolors.RED + "          There is a new version of SET available.\n                    " + bcolors.GREEN + " Your version: " + bcolors.RED + cv + bcolors.GREEN +
-                          "\n                  Current version: " + bcolors.ENDC + bcolors.BOLD + version + bcolors.YELLOW + "\n\nPlease update SET to the latest before submitting any git issues.\n\n" + bcolors.ENDC)
+                    print(bcolors.RED + "          Une nouvelle version de SET est disponible.\n                    " + bcolors.GREEN + " Votre version : " + bcolors.RED + cv + bcolors.GREEN +
+                          "\n                  Version actuelle : " + bcolors.ENDC + bcolors.BOLD + version + bcolors.YELLOW + "\n\nVeuillez mettre à jour SET vers la dernière version avant de soumettre une issue git.\n\n" + bcolors.ENDC)
 
         # why urllib and sockets cant control DNS resolvers is beyond me - so
         # we use this as a hack job to add a delay and kill if updates are
@@ -990,7 +990,7 @@ def show_banner(define_version, graphic):
         # If thread is still active
         if p.is_alive():
             print(
-                bcolors.RED + " Unable to check for new version of SET (is your network up?)\n" + bcolors.ENDC)
+                bcolors.RED + " Impossible de vérifier la présence d'une nouvelle version de SET (votre réseau fonctionne-t-il ?)\n" + bcolors.ENDC)
             # terminate the process
             p.terminate()
             p.join()
@@ -1706,8 +1706,8 @@ def shellcode_replace(ipaddr, port, shellcode):
 
 def exit_set():
     cleanup_routine()
-    print("\n\n Thank you for " + bcolors.RED + "shopping" + bcolors.ENDC +
-          " with the Social-Engineer Toolkit.\n\n Hack the Gibson...and remember...hugs are worth more than handshakes.\n")
+    print("\n\n Merci d'avoir " + bcolors.RED + "fait vos achats" + bcolors.ENDC +
+          " avec le Social-Engineer Toolkit.\n\n Hack the Gibson... et souvenez-vous... les câlins valent plus que les poignées de main.\n")
     sys.exit()
 
 
