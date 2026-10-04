@@ -17,6 +17,8 @@ import re
 import threading
 import time
 
+from src.core.i18n import translate as _
+
 try:  # Py2
     from urllib import urlencode, urlopen
 except ImportError:  # Py3
@@ -108,7 +110,7 @@ def login_drac(ipaddr_single):
         # Failure_No_Free_Slot means there are no sessions available need to
         # log someone off
         if "Failure_No_Free_Slot" in data:
-            print(("{0}[!]{1} Trop de personnes sont connectées mais le compte root / mot de passe calvin est valide sur l'IP : {2}".format(bcolors.YELLOW,
+            print((_("{0}[!]{1} There are to many people logged but un: root and pw: calvin are legit on IP: {2}").format(bcolors.YELLOW,
                                                                                                                        bcolors.ENDC,
                                                                                                                        ipaddr_single)))
             global global_check1
@@ -116,7 +118,7 @@ def login_drac(ipaddr_single):
 
         # if we are presented with a username back, we are golden
         if "'USERNAME' : 'root'" in data:
-            print("{0}[*]{1} Dell DRAC compromis ! nom d'utilisateur : root et mot de passe : calvin pour l'adresse IP : {2}".format(bcolors.GREEN,
+            print(_("{0}[*]{1} Dell DRAC compromised! username: root and password: calvin for IP address: {2}").format(bcolors.GREEN,
                                                                                                                     bcolors.ENDC,
                                                                                                                     ipaddr_single))
             global global_check2
@@ -160,7 +162,7 @@ def login_chassis(ipaddr_single):
             pass  # login failed
         # to many people logged in at a given time
         if 'Connection refused, maximum sessions already in use.' in data:
-            print(("{0}[!]{1} Trop de personnes sont connectées mais le compte root / mot de passe calvin est valide sur l'IP : {2}".format(bcolors.YELLOW,
+            print((_("{0}[!]{1} There are to many people logged but un: root and pw: calvin are legit on IP: {2}").format(bcolors.YELLOW,
                                                                                                                     bcolors.ENDC,
                                                                                                                     ipaddr_single)))
             global global_check3
@@ -168,7 +170,7 @@ def login_chassis(ipaddr_single):
 
         # successful guess of passwords
         if "/cgi-bin/webcgi/index" in data:
-            print("{0}[*]{1} Dell Chassis compromis ! nom d'utilisateur : root mot de passe : calvin pour l'adresse IP : {2}".format(bcolors.GREEN,
+            print(_("{0}[*]{1} Dell Chassis compromised! username: root password: calvin for IP address: {2}").format(bcolors.GREEN,
                                                                                                               bcolors.ENDC,
                                                                                                               ipaddr_single))
             global global_check4
@@ -313,30 +315,30 @@ def scan(ipaddr):
 
 print("\n")
 print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
-print("Fast-Track - Découverte et bruteforce DellDRAC et Dell Chassis")
+print(_("Fast-Track DellDRAC and Dell Chassis Discovery and Brute Forcer"))
 print("")
-print("Écrit par Dave Kennedy @ TrustedSec")
+print(_("Written by Dave Kennedy @ TrustedSec"))
 print("https://www.trustedsec.com")
 print("@TrustedSec and @HackingDave")
 print("++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++")
 print("")
-print("Ce vecteur d'attaque permet d'identifier les installations par défaut")
-print("de Dell DRAC et Chassis. Une fois trouvées, vous pouvez utiliser")
-print("les capacités d'administration distante pour monter un média virtuel")
-print("et l'utiliser pour charger par exemple un ISO Back|Track ou de")
-print("réinitialisation de mot de passe. À partir de là, ajoutez-vous un compte")
-print("administrateur local ou extrayez la base SAM. Cela vous permettra de")
-print("compromettre l'infrastructure entière. Vous devrez trouver une instance DRAC")
-print("avec un serveur attaché et le redémarrer sur l'ISO via le média")
-print("virtuel.")
+print(_("This attack vector can be used to identify default installations"))
+print(_("of Dell DRAC and Chassis installations. Once found, you can use"))
+print(_("the remote administration capabilties to mount a virtual media"))
+print(_("device and use it to load for example Back|Track or password"))
+print(_("reset iso. From there, add yourself a local administrator account"))
+print(_("or dump the SAM database. This will allow you to compromise the"))
+print(_("entire infrastructure. You will need to find a DRAC instance that"))
+print(_("has an attached server and reboot it into the iso using the virtual"))
+print(_("media device."))
 print("")
-print("Entrez ci-dessous l'adresse IP ou la notation CIDR. Exemple : 192.168.1.1/24")
+print(_("Enter the IP Address or CIDR notation below. Example: 192.168.1.1/24"))
 print("")
-ipaddr = input("Entrez l'IP ou le CIDR : ")
+ipaddr = input(_("Enter the IP or CIDR: "))
 
-print("{0}[*]{1} Scan des adresses IP en cours, cela peut prendre quelques minutes selon la taille de la plage réseau...".format(bcolors.GREEN,
+print(_("{0}[*]{1} Scanning IP addresses, this could take a few minutes depending on how large the subnet range...").format(bcolors.GREEN,
                                                                                                                          bcolors.ENDC))
-print("{0}[*]{1} Par exemple, un /16 peut prendre une heure ou deux.. Un /24 ne prend que quelques secondes. Soyez patient.".format(bcolors.GREEN,
+print(_("{0}[*]{1} Asan example, a /16 can take an hour or two.. A slash 24 is only a couple seconds. Be patient.").format(bcolors.GREEN,
                                                                                                                         bcolors.ENDC))
 
 # set global variables to see if we were successful
@@ -348,10 +350,10 @@ global_check4 = 0
 # kick off the scan
 scan(ipaddr)
 if any([global_check1, global_check2, global_check3, global_check4]):
-    print(("{0}[*]{1} Le bruteforceur DellDrac / Chassis a terminé le scan. Bonne chasse =)".format(bcolors.GREEN,
+    print((_("{0}[*]{1} DellDrac / Chassis Brute Forcer has finished scanning. Happy Hunting =)").format(bcolors.GREEN,
                                                                                                       bcolors.ENDC)))
 else:
-    print(("{0}[!]{1} Désolé, aucun serveur Dell avec les identifiants par défaut n'a été trouvé..Bonne chance :(".format(bcolors.RED,
+    print((_("{0}[!]{1} Sorry, unable to find any of the Dell servers with default creds..Good luck :(").format(bcolors.RED,
                                                                                                              bcolors.ENDC)))
 
-input("Appuyez sur {entrée} pour sortir.")
+input(_("Press {return} to exit."))
